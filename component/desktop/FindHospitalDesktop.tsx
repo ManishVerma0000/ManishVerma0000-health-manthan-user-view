@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import FooterDesktop from "./FooterDesktop";
+import NavigationDesktop from "./NavigationDesktop";
 
 interface StepCardProps {
   image: string;
@@ -50,8 +52,9 @@ const FindHospitalDesktop: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen">
+      <NavigationDesktop />
+      <div className="max-w-6xl mx-auto mt-8">
         {/* Header Section */}
         <div className="mb-12">
           <h1 className="text-3xl font-bold text-gray-800 mb-3">
@@ -87,6 +90,9 @@ const FindHospitalDesktop: React.FC = () => {
             Surgery Eye Laser Surgery Eye Laser Surgery...
           </p>
         </div>
+      </div>
+      <div className="mt-8">
+        <FooterDesktop />
       </div>
     </div>
   );

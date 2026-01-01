@@ -1,6 +1,8 @@
 "use client"
 import React, { useState } from 'react';
 import { Phone, Users, Shield, Calendar, Check } from 'lucide-react';
+import NavigationDesktop from './NavigationDesktop';
+import FooterDesktop from './FooterDesktop';
 
 const BookAppointmentDesktop: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,6 +23,7 @@ const BookAppointmentDesktop: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
+      <NavigationDesktop/>
       <div className="bg-gradient-to-r from-teal-600 to-teal-700">
         <div className="max-w-7xl mx-auto px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -302,6 +305,7 @@ const BookAppointmentDesktop: React.FC = () => {
           </div>
         </div>
       </div>
+      <FooterDesktop/>
     </div>
   );
 };

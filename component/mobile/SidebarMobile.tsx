@@ -5,8 +5,6 @@ import {
   X,
   Home,
   User,
-  Calendar,
-  FileText,
   Phone,
   Settings,
   BriefcaseMedicalIcon,
@@ -21,14 +19,14 @@ interface SidebarProps {
 const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const menuItems = [
     { icon: Home, label: "Home", href: "#" },
-    { icon: User, label: "Society", href: "/society" },
+    { icon: User, label: "Surgery", href: "/surgery" },
     {
       icon: BriefcaseMedicalIcon,
       label: "Find Hospital",
-      href: "/find-hospital",
+      href: "/find-doctor",
     },
     { icon: Phone, label: "Contact Us", href: "/contact-us" },
-    { icon: Phone, label: "Get Consultation", href: "/contact-us" },
+    { icon: Phone, label: "Get Consultation", href: "/book-appointment" },
     { icon: Settings, label: "About us", href: "/about-us" },
   ];
 

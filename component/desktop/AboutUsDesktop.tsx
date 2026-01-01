@@ -1,15 +1,19 @@
 "use client";
 
+import FooterDesktop from "./FooterDesktop";
+import NavigationDesktop from "./NavigationDesktop";
+
 export default function AboutUsDesktop() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* HERO */}
-      <section className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-20">
+      <NavigationDesktop />
+      <section className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white py-20 mt-4">
         <div className="max-w-6xl mx-auto px-6">
           <h1 className="text-4xl font-bold mb-4">About HealthManthan</h1>
           <p className="text-lg max-w-2xl opacity-90">
-            A trusted healthcare platform helping patients make informed
-            medical decisions with confidence.
+            A trusted healthcare platform helping patients make informed medical
+            decisions with confidence.
           </p>
         </div>
       </section>
@@ -62,6 +66,8 @@ export default function AboutUsDesktop() {
           </div>
         </div>
       </section>
+
+      <FooterDesktop />
     </div>
   );
 }

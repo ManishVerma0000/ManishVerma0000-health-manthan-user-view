@@ -1,5 +1,7 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
+import NavigationDesktop from "./NavigationDesktop";
+import FooterDesktop from "./FooterDesktop";
 
 interface Doctor {
   id: number;
@@ -11,49 +13,56 @@ interface Doctor {
 }
 
 const DoctorSearchPage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const doctors: Doctor[] = [
     {
       id: 1,
-      name: 'Dinesh Saini',
-      specialty: 'Dentist',
-      qualifications: 'MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry',
-      experience: '13 Years of Experience',
-      image: '/api/placeholder/80/80'
+      name: "Dinesh Saini",
+      specialty: "Dentist",
+      qualifications:
+        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
+      experience: "13 Years of Experience",
+      image: "/api/placeholder/80/80",
     },
     {
       id: 2,
-      name: 'Dinesh Saini',
-      specialty: 'Dentist',
-      qualifications: 'MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry',
-      experience: '13 Years of Experience',
-      image: '/api/placeholder/80/80'
+      name: "Dinesh Saini",
+      specialty: "Dentist",
+      qualifications:
+        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
+      experience: "13 Years of Experience",
+      image: "/api/placeholder/80/80",
     },
     {
       id: 3,
-      name: 'Dinesh Saini',
-      specialty: 'Dentist',
-      qualifications: 'MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry',
-      experience: '13 Years of Experience',
-      image: '/api/placeholder/80/80'
+      name: "Dinesh Saini",
+      specialty: "Dentist",
+      qualifications:
+        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
+      experience: "13 Years of Experience",
+      image: "/api/placeholder/80/80",
     },
     {
       id: 4,
-      name: 'Dinesh Saini',
-      specialty: 'Dentist',
-      qualifications: 'MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry',
-      experience: '13 Years of Experience',
-      image: '/api/placeholder/80/80'
-    }
+      name: "Dinesh Saini",
+      specialty: "Dentist",
+      qualifications:
+        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
+      experience: "13 Years of Experience",
+      image: "/api/placeholder/80/80",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
+      <NavigationDesktop />
       {/* Header */}
-      <header className="bg-indigo-900 text-white py-4 px-6">
+      <header className="bg-teal-600 text-white py-4 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <h1 className="text-sm font-medium tracking-wide">RESEARCH DOCTOR, HOSPITAL</h1>
+          <h1 className="text-sm font-medium tracking-wide">
+            RESEARCH DOCTOR, HOSPITAL
+          </h1>
           <input
             type="text"
             placeholder="Search"
@@ -99,12 +108,11 @@ const DoctorSearchPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Action Buttons */}
               <div className="flex-shrink-0 flex flex-col gap-2">
-                <button className="px-6 py-2 border-2 border-cyan-500 text-cyan-600 rounded font-medium hover:bg-cyan-50 transition-colors whitespace-nowrap">
+                <button className="px-6 py-2 border-2 border-teal-600 text-teal-600 rounded font-medium hover:bg-cyan-50 transition-colors whitespace-nowrap">
                   Book Appointment
                 </button>
-                <button className="px-6 py-2 bg-cyan-500 text-white rounded font-medium hover:bg-cyan-600 transition-colors whitespace-nowrap">
+                <button className="px-6 py-2 bg-teal-600 text-white rounded font-medium hover:bg-teal-600 transition-colors whitespace-nowrap">
                   Get Consultation
                 </button>
               </div>
@@ -112,6 +120,7 @@ const DoctorSearchPage: React.FC = () => {
           ))}
         </div>
       </main>
+      <FooterDesktop/>
     </div>
   );
 };
