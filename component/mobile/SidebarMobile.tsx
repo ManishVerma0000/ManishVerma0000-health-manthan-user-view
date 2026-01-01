@@ -9,6 +9,7 @@ import {
   FileText,
   Phone,
   Settings,
+  BriefcaseMedicalIcon,
 } from "lucide-react";
 
 // Sidebar Component
@@ -20,11 +21,15 @@ interface SidebarProps {
 const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const menuItems = [
     { icon: Home, label: "Home", href: "#" },
-    { icon: User, label: "Find Doctors", href: "/find-hospital" },
-    { icon: Calendar, label: "Appointments", href: "#" },
-    { icon: FileText, label: "Medical Records", href: "#" },
-    { icon: Phone, label: "Contact Us", href: "#" },
-    { icon: Settings, label: "Settings", href: "#" },
+    { icon: User, label: "Society", href: "/society" },
+    {
+      icon: BriefcaseMedicalIcon,
+      label: "Find Hospital",
+      href: "/find-hospital",
+    },
+    { icon: Phone, label: "Contact Us", href: "/contact-us" },
+    { icon: Phone, label: "Get Consultation", href: "/contact-us" },
+    { icon: Settings, label: "About us", href: "/about-us" },
   ];
 
   return (
