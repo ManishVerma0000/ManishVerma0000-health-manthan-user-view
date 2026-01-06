@@ -27,7 +27,10 @@ export default function ContactUsMobile() {
           </div>
           <div className="w-6"></div>
         </header>
-        <ContactUsFormCommon />
+        <div className="flex justify-center">
+          <ContactUsFormCommon />
+        </div>
+        
         <Footer />
       </div>
     </>

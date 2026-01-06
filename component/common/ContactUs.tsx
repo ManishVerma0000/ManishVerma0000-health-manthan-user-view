@@ -9,19 +9,16 @@ export default function ContactUsFormCommon() {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 px-4">
+    <div className="flex items-center justify-center bg-gray-100 px-4 mt-10 mb-10">
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg overflow-hidden">
-        
         {/* Wrapper */}
         <div className="grid grid-cols-1 md:grid-cols-2">
-          
           {/* Left Content (Desktop Visual Section) */}
           <div className="hidden md:flex flex-col justify-center bg-teal-600 text-white p-10">
-            <h2 className="text-3xl font-semibold mb-3">
-              Contact Us
-            </h2>
+            <h2 className="text-3xl font-semibold mb-3">Contact Us</h2>
             <p className="text-teal-100 mb-6">
-              Share your details and our team will reach out to you within 24 hours.
+              Share your details and our team will reach out to you within 24
+              hours.
             </p>
 
             <ul className="space-y-3 text-sm">
@@ -33,7 +30,6 @@ export default function ContactUsFormCommon() {
 
           {/* Right Form Section */}
           <div className="p-6 md:p-10">
-            
             {/* Mobile Header */}
             <div className="text-center md:text-left mb-6 md:hidden">
               <h2 className="text-xl font-semibold">
@@ -46,7 +42,6 @@ export default function ContactUsFormCommon() {
 
             {/* Form Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              
               {/* Name */}
               <div>
                 <label className="text-sm text-gray-600">Name</label>
@@ -100,9 +95,7 @@ export default function ContactUsFormCommon() {
             </div>
 
             {/* CTA */}
-            <button
-              className="mt-8 w-full bg-teal-600 text-white py-3 rounded-md text-lg font-medium shadow-md hover:bg-teal-700 transition"
-            >
+            <button className="mt-8 w-full bg-teal-600 text-white py-3 rounded-md text-lg font-medium shadow-md hover:bg-teal-700 transition">
               Get Free Consultation
             </button>
           </div>

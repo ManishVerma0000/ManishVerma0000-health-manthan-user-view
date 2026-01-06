@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import NavigationDesktop from "./NavigationDesktop";
 import FooterDesktop from "./FooterDesktop";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface Doctor {
   id: number;

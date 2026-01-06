@@ -4,7 +4,10 @@ import { Menu, Search } from "lucide-react";
 import Footer from "./FooterMobile";
 import SideBarMobile from "./SidebarMobile";
 import Link from "next/link";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/navigation";
+// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
 
 interface Doctor {
   id: number;
@@ -16,9 +19,10 @@ interface Doctor {
 }
 
 const DoctorSearchMobile: React.FC = () => {
+  const router=useRouter()
   const [searchTerm, setSearchTerm] = useState("");
 
-  const router=useRouter()
+  
 
   const redirectToCosulationPage=()=>{
     router.push('/book-appointment')
