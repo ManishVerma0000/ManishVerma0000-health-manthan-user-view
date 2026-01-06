@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import NavigationDesktop from "./NavigationDesktop";
 import FooterDesktop from "./FooterDesktop";
+import { useRouter } from "next/router";
 
 interface Doctor {
   id: number;
@@ -14,6 +15,11 @@ interface Doctor {
 
 const DoctorSearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const router=useRouter()
+
+  const redirectToCosulationPage=()=>{
+    router.push('/book-appointment')
+  }
 
   const doctors: Doctor[] = [
     {
@@ -111,8 +117,13 @@ const DoctorSearchPage: React.FC = () => {
               <div className="flex-shrink-0 flex flex-col gap-2">
                 <button className="px-6 py-2 border-2 border-teal-600 text-teal-600 rounded font-medium hover:bg-cyan-50 transition-colors whitespace-nowrap">
                   Book Appointment
+
                 </button>
-                <button className="px-6 py-2 bg-teal-600 text-white rounded font-medium hover:bg-teal-600 transition-colors whitespace-nowrap">
+                <button
+                onClick={()=>{
+                  redirectToCosulationPage()
+                }}
+                className="px-6 py-2 bg-teal-600 text-white rounded font-medium hover:bg-teal-600 transition-colors whitespace-nowrap">
                   Get Consultation
                 </button>
               </div>
