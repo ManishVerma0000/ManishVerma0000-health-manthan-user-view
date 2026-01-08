@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, Search } from "lucide-react";
 import Footer from "./FooterMobile";
 import SideBarMobile from "./SidebarMobile";
@@ -7,7 +7,7 @@ import Link from "next/link";
 // import { useRouter } from "next/navigation";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
-
+import api from "@/api/api";
 
 interface Doctor {
   id: number;
@@ -27,6 +27,14 @@ const DoctorSearchMobile: React.FC = () => {
   const redirectToCosulationPage=()=>{
     router.push('/book-appointment')
   }
+
+  useEffect(()=>{
+    api.get('/hospital/list').then((res)=>{
+      console.log(res?.data,'this is ht')
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
 
 
   const doctors: Doctor[] = [

@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavigationDesktop from "./NavigationDesktop";
 import FooterDesktop from "./FooterDesktop";
 import { useRouter } from "next/navigation";
+import api from "@/api/api";
 
 interface Doctor {
   id: number;
@@ -15,11 +16,21 @@ interface Doctor {
 
 const DoctorSearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const[hospitalList,setHospitalList]=useState<any[]>()
   const router=useRouter()
 
   const redirectToCosulationPage=()=>{
     router.push('/book-appointment')
   }
+
+  useEffect(()=>{
+    api.get('/hospital/list').then((res)=>{
+      console.log(res?.data,'this is ht')
+      setHospitalList(res?.data)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },[])
 
   const doctors: Doctor[] = [
     {
@@ -82,7 +93,7 @@ const DoctorSearchPage: React.FC = () => {
       {/* Doctor Cards Container */}
       <main className="max-w-6xl mx-auto py-8 px-6">
         <div className="space-y-4">
-          {doctors.map((doctor) => (
+          {hospitalList?.map((doctor) => (
             <div
               key={doctor.id}
               className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-start gap-6"
@@ -91,8 +102,8 @@ const DoctorSearchPage: React.FC = () => {
               <div className="flex-shrink-0">
                 <div className="w-20 h-20 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-lg overflow-hidden">
                   <img
-                    src={doctor.image}
-                    alt={doctor.name}
+                    src={doctor?.imageUrls?.[0]}
+                    alt={doctor?.hospitalName}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -104,7 +115,7 @@ const DoctorSearchPage: React.FC = () => {
                   {doctor.specialty}
                 </h2>
                 <h3 className="text-gray-900 text-xl font-bold mb-2">
-                  {doctor.name}
+                  {doctor.hospitalName}
                 </h3>
                 <p className="text-gray-600 text-sm mb-3 leading-relaxed">
                   {doctor.qualifications}
