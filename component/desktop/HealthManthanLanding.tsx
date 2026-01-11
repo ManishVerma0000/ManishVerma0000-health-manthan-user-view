@@ -1,21 +1,40 @@
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import { ArrowRight, Phone, Users, Heart, Activity } from "lucide-react";
 import FooterDesktop from "./FooterDesktop";
 import NavigationDesktop from "./NavigationDesktop";
+import { getCategoriesApi } from "@/api/services/category.service";
+interface Category {
+  _id: string;
+  categoryName: string;
+  labelName: string;
+  imageUrl: string;
+  iconImage: string;
+}
 
 export default function HealthManthanLanding() {
-  const specialties = [
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-    { title: "Eye Laser Surgery", icon: "👁️", type: "eye" },
-  ];
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await getCategoriesApi();
+        setCategories(res);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
+  if (loading) {
+    return <p className="text-center py-10">Loading categories...</p>;
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -126,46 +145,36 @@ export default function HealthManthanLanding() {
             ))}
           </div>
           <h2 className="text-4xl font-bold text-gray-900">Our Specialties</h2>
-          <p className="text-gray-600 mt-2">
-            Eye Laser Surgery Eye Laser Surgery Eye Laser Surgery Eye Laser
-            Surgery Eye Laser Surgery Eye Laser
-          </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-          {specialties.map((specialty, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 text-center group cursor-pointer"
-            >
-              <div className="mb-4">
-                {specialty.type === "eye" ? (
-                  <div className="relative w-24 h-24 mx-auto">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-teal-100 rounded-full opacity-50"></div>
-                    <img
-                      src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=200&h=200&fit=crop"
-                      alt="Eye surgery"
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
-                ) : (
-                  <div className="relative w-24 h-24 mx-auto">
-                    <div className="absolute inset-0 bg-gradient-to-br from-red-100 to-pink-100 rounded-full opacity-50"></div>
-                    <img
-                      src="https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?w=200&h=200&fit=crop"
-                      alt="Kidney"
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
-                )}
-              </div>
-              <h3 className="font-semibold text-gray-800 group-hover:text-teal-500 transition flex items-center justify-center">
-                {specialty.title}
-                <ArrowRight className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition" />
-              </h3>
+      {categories?.map((category) => (
+        <div
+          key={category._id}
+          className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 text-center group cursor-pointer"
+        >
+          <div className="mb-4">
+            <div className="relative w-24 h-24 mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-100 to-blue-100 rounded-full opacity-50"></div>
+              <img
+                src={category?.iconImage || category?.imageUrl}
+                alt={category?.categoryName}
+                className="w-full h-full object-cover rounded-full relative z-10"
+              />
             </div>
-          ))}
+          </div>
+
+          <h3 className="font-semibold text-gray-800 group-hover:text-teal-500 transition flex items-center justify-center">
+            {category?.categoryName}
+            <ArrowRight className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition" />
+          </h3>
+
+          <p className="text-sm text-gray-500 mt-1">
+            {category?.categoryName}
+          </p>
         </div>
+      ))}
+    </div>
       </section>
 
       {/* Why Choose Us Section */}

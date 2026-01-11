@@ -6,74 +6,47 @@ import { useRouter } from "next/navigation";
 import api from "@/api/api";
 
 interface Doctor {
-  id: number;
-  name: string;
-  specialty: string;
-  qualifications: string;
-  experience: string;
-  image: string;
+  _id: string;
+  hospital: {
+    hospitalName: string;
+    city: string;
+    location: string;
+  };
+  qualificationAndExperience: string;
+  about: string;
+  timings: { day: string; time: string }[];
+  imageUrl: string[];
 }
 
 const DoctorSearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const[hospitalList,setHospitalList]=useState<any[]>()
-  const router=useRouter()
+  const [doctorList, setDoctorList] = useState<Doctor[]>([]);
+  const router = useRouter();
 
-  const redirectToCosulationPage=()=>{
-    router.push('/book-appointment')
-  }
+  const redirectToConsultationPage = () => {
+    router.push("/book-appointment");
+  };
 
-  useEffect(()=>{
-    api.get('/hospital/list').then((res)=>{
-      console.log(res?.data,'this is ht')
-      setHospitalList(res?.data)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  },[])
+  useEffect(() => {
+    api
+      .get("/doctor/list")
+      .then((res) => {
+        console.log(res?.data?.data, "res");
+        setDoctorList(res?.data || []);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
-  const doctors: Doctor[] = [
-    {
-      id: 1,
-      name: "Dinesh Saini",
-      specialty: "Dentist",
-      qualifications:
-        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
-      experience: "13 Years of Experience",
-      image: "/api/placeholder/80/80",
-    },
-    {
-      id: 2,
-      name: "Dinesh Saini",
-      specialty: "Dentist",
-      qualifications:
-        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
-      experience: "13 Years of Experience",
-      image: "/api/placeholder/80/80",
-    },
-    {
-      id: 3,
-      name: "Dinesh Saini",
-      specialty: "Dentist",
-      qualifications:
-        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
-      experience: "13 Years of Experience",
-      image: "/api/placeholder/80/80",
-    },
-    {
-      id: 4,
-      name: "Dinesh Saini",
-      specialty: "Dentist",
-      qualifications:
-        "MBBS, MDS - Pedodontics & Preventive Dentistry, Fellowship in Reconstructive Pediatric Dentistry",
-      experience: "13 Years of Experience",
-      image: "/api/placeholder/80/80",
-    },
-  ];
+  const filteredDoctors = doctorList.filter((doctor) =>
+    doctor.hospital?.hospitalName
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen">
       <NavigationDesktop />
+
       {/* Header */}
       <header className="bg-teal-600 text-white py-4 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
@@ -82,7 +55,7 @@ const DoctorSearchPage: React.FC = () => {
           </h1>
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search hospital"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="px-4 py-2 rounded text-gray-800 text-sm w-64 focus:outline-none focus:ring-2 focus:ring-cyan-400"
@@ -90,51 +63,61 @@ const DoctorSearchPage: React.FC = () => {
         </div>
       </header>
 
-      {/* Doctor Cards Container */}
+      {/* Doctor Cards */}
       <main className="max-w-6xl mx-auto py-8 px-6">
         <div className="space-y-4">
-          {hospitalList?.map((doctor) => (
+          {filteredDoctors?.map((doctor) => (
             <div
-              key={doctor.id}
+              key={doctor?._id}
               className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex items-start gap-6"
             >
-              {/* Doctor Image */}
+              {/* Image */}
               <div className="flex-shrink-0">
                 <div className="w-20 h-20 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-lg overflow-hidden">
                   <img
-                    src={doctor?.imageUrls?.[0]}
-                    alt={doctor?.hospitalName}
+                    src={doctor?.imageUrl?.[0]}
+                    alt={doctor?.hospital?.hospitalName}
                     className="w-full h-full object-cover"
                   />
                 </div>
               </div>
 
-              {/* Doctor Information */}
+              {/* Info */}
               <div className="flex-grow">
                 <h2 className="text-cyan-600 text-lg font-semibold mb-1">
-                  {doctor.specialty}
+                  Doctor
                 </h2>
-                <h3 className="text-gray-900 text-xl font-bold mb-2">
-                  {doctor.hospitalName}
+
+                <h3 className="text-gray-900 text-xl font-bold mb-1">
+                  {doctor?.hospital?.hospitalName}
                 </h3>
-                <p className="text-gray-600 text-sm mb-3 leading-relaxed">
-                  {doctor.qualifications}
+
+                <p className="text-gray-600 text-sm mb-2">
+                  {doctor?.hospital?.city}, {doctor?.hospital?.location}
                 </p>
-                <p className="text-gray-700 text-sm font-medium">
-                  {doctor.experience}
+
+                <p className="text-gray-700 text-sm mb-2">
+                  {doctor?.qualificationAndExperience}
+                </p>
+
+                <p className="text-sm text-gray-500">
+                  Timing:{" "}
+                  {doctor?.timings
+                    ?.map((t) => `${t.day} (${t.time})`)
+                    .join(", ")}
                 </p>
               </div>
 
+              {/* Actions */}
               <div className="flex-shrink-0 flex flex-col gap-2">
-                <button className="px-6 py-2 border-2 border-teal-600 text-teal-600 rounded font-medium hover:bg-cyan-50 transition-colors whitespace-nowrap">
+                <button className="px-6 py-2 border-2 border-teal-600 text-teal-600 rounded font-medium hover:bg-cyan-50">
                   Book Appointment
-
                 </button>
+
                 <button
-                onClick={()=>{
-                  redirectToCosulationPage()
-                }}
-                className="px-6 py-2 bg-teal-600 text-white rounded font-medium hover:bg-teal-600 transition-colors whitespace-nowrap">
+                  onClick={redirectToConsultationPage}
+                  className="px-6 py-2 bg-teal-600 text-white rounded font-medium hover:bg-teal-700"
+                >
                   Get Consultation
                 </button>
               </div>
@@ -142,7 +125,8 @@ const DoctorSearchPage: React.FC = () => {
           ))}
         </div>
       </main>
-      <FooterDesktop/>
+
+      <FooterDesktop />
     </div>
   );
 };

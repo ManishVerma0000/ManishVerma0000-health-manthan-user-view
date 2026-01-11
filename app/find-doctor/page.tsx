@@ -1,7 +1,6 @@
 import DoctorSearchPage from "@/component/desktop/DoctorSearchDesktop";
-// import FindHospitalDesktop from "@/component/desktop/FindHospitalDesktop";
 import DoctorSearchMobile from "@/component/mobile/DoctorSearchMobile";
-// import FindHospitalMobile from "@/component/mobile/FindHospitalMobile";
+
 
 
 export default function Home() {
