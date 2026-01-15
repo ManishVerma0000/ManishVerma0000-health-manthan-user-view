@@ -217,7 +217,7 @@ export default function HealthManthanLanding() {
               />
               <div className="text-white text-center">
                 <div className="text-3xl font-bold mb-1">10000 +</div>
-                <div className="text-teal-100">Hospitals</div>
+                <div className="text-black">Hospitals</div>
               </div>
             </div>
 
@@ -230,7 +230,7 @@ export default function HealthManthanLanding() {
               />
               <div className="text-white text-center">
                 <div className="text-3xl font-bold mb-1">10000 +</div>
-                <div className="text-teal-100">HappyCustomer</div>
+                <div className="text-black">HappyCustomer</div>
               </div>
             </div>
 
