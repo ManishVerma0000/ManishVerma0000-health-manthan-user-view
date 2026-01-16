@@ -1,9 +1,11 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { ArrowRight, Phone, Users, Heart, Activity } from "lucide-react";
 import FooterDesktop from "./FooterDesktop";
 import NavigationDesktop from "./NavigationDesktop";
 import { getCategoriesApi } from "@/api/services/category.service";
+import { Surgery } from "@/types/surgery";
+import { getSurgeryList } from "@/api/services/surgery.service";
 interface Category {
   _id: string;
   categoryName: string;
@@ -13,23 +15,22 @@ interface Category {
 }
 
 export default function HealthManthanLanding() {
-
-  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [surgeries, setSurgeries] = useState<Surgery[]>([]);
 
   useEffect(() => {
-    async function fetchCategories() {
+    async function fetchData() {
       try {
-        const res = await getCategoriesApi();
-        setCategories(res);
+        const surgeryRes = await getSurgeryList();
+        setSurgeries(surgeryRes); // IMPORTANT
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching surgeries:", error);
       } finally {
         setLoading(false);
       }
     }
 
-    fetchCategories();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -82,7 +83,7 @@ export default function HealthManthanLanding() {
                     >
                       {icon}
                     </div>
-                  )
+                  ),
                 )}
               </div>
             </div>
@@ -148,33 +149,30 @@ export default function HealthManthanLanding() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-      {categories?.map((category) => (
-        <div
-          key={category._id}
-          className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 text-center group cursor-pointer"
-        >
-          <div className="mb-4">
-            <div className="relative w-24 h-24 mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-100 to-blue-100 rounded-full opacity-50"></div>
-              <img
-                src={category?.iconImage || category?.imageUrl}
-                alt={category?.categoryName}
-                className="w-full h-full object-cover rounded-full relative z-10"
-              />
+          {surgeries?.map((surgery) => (
+            <div
+              key={surgery?._id}
+              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow p-6 text-center group cursor-pointer"
+            >
+              <div className="mb-4">
+                <div className="relative w-24 h-24 mx-auto">
+                  <div className="absolute inset-0 bg-gradient-to-br from-teal-100 to-blue-100 rounded-full opacity-50"></div>
+
+                  <img
+                    src={(surgery?.images?.[0] || surgery.icon)?.trim()}
+                    alt={surgery?.surgeryName}
+                    className="w-full h-full object-cover rounded-full relative z-10"
+                  />
+                </div>
+              </div>
+
+              <h3 className="font-semibold text-gray-800 group-hover:text-teal-500 transition flex items-center justify-center">
+                {surgery?.surgeryName}
+                <ArrowRight className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition" />
+              </h3>
             </div>
-          </div>
-
-          <h3 className="font-semibold text-gray-800 group-hover:text-teal-500 transition flex items-center justify-center">
-            {category?.categoryName}
-            <ArrowRight className="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition" />
-          </h3>
-
-          <p className="text-sm text-gray-500 mt-1">
-            {category?.categoryName}
-          </p>
+          ))}
         </div>
-      ))}
-    </div>
       </section>
 
       {/* Why Choose Us Section */}
