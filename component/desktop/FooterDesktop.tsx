@@ -4,14 +4,14 @@ import { Activity } from "lucide-react";
 export default function FooterDesktop() {
   return (
     <>
-      <footer className="bg-[#0A0F3F] text-white py-12">
+      <footer className="bg-[#0A0F3F] text-white py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center space-x-4 mb-8">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6 sm:mb-8">
             <Activity className="w-8 h-8 text-teal-400" />
-            <span className="text-2xl font-bold">Health Manthan</span>
+            <span className="text-xl sm:text-2xl font-bold">Health Manthan</span>
           </div>
 
-          <div className="flex justify-center space-x-6 mb-8">
+          <div className="flex justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 flex-wrap">
             <a
               href="#"
               className="w-10 h-10 bg-indigo-800 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
@@ -38,9 +38,9 @@ export default function FooterDesktop() {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
             <div>
-              <h3 className="font-semibold mb-4">Type of Surgery</h3>
+              <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Type of Surgery</h3>
               <ul className="space-y-2 text-sm text-indigo-300">
                 <li>
                   <a href="#" className="hover:text-teal-400">
@@ -66,7 +66,7 @@ export default function FooterDesktop() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">Patient</h3>
+              <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Patient</h3>
               <ul className="space-y-2 text-sm text-indigo-300">
                 <li>
                   <a href="#" className="hover:text-teal-400">
@@ -92,7 +92,7 @@ export default function FooterDesktop() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">Health Manthan</h3>
+              <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Health Manthan</h3>
               <ul className="space-y-2 text-sm text-indigo-300">
                 <li>
                   <a href="#" className="hover:text-teal-400">
@@ -118,7 +118,7 @@ export default function FooterDesktop() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">For Hospitals</h3>
+              <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">For Hospitals</h3>
               <ul className="space-y-2 text-sm text-indigo-300">
                 <li>
                   <a href="#" className="hover:text-teal-400">
@@ -134,7 +134,7 @@ export default function FooterDesktop() {
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">Contact Us</h3>
+              <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Contact Us</h3>
               <ul className="space-y-2 text-sm text-indigo-300">
                 <li>+91 9797097975</li>
                 <li>1234567890</li>
@@ -143,7 +143,7 @@ export default function FooterDesktop() {
             </div>
           </div>
 
-          <div className="border-t border-indigo-800 pt-6 text-center text-sm text-indigo-400">
+          <div className="border-t border-indigo-800 pt-4 sm:pt-6 text-center text-xs sm:text-sm text-indigo-400">
             Copyright © 2025 All rights reserved. Terms & Condition
           </div>
         </div>

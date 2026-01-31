@@ -1,16 +1,19 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import {
   X,
   Home,
-  User,
+  Compass,
+  Stethoscope,
+  Users,
   Phone,
-  Settings,
-  BriefcaseMedicalIcon,
+  CalendarCheck,
+  Info,
 } from "lucide-react";
 
-// Sidebar Component
+// Sidebar Component - matches desktop navigation items
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
@@ -18,16 +21,18 @@ interface SidebarProps {
 
 const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const menuItems = [
-    { icon: Home, label: "Home", href: "#" },
-    { icon: User, label: "Surgery", href: "/surgery" },
-    {
-      icon: BriefcaseMedicalIcon,
-      label: "Find Hospital",
-      href: "/find-doctor",
-    },
+    { icon: Home, label: "Home", href: "/" },
+    { icon: Compass, label: "Explore", href: "/surgery" },
+    { icon: Stethoscope, label: "Services", href: "#specialties" },
+    { icon: Users, label: "Doctors", href: "/find-doctor" },
     { icon: Phone, label: "Contact Us", href: "/contact-us" },
-    { icon: Phone, label: "Get Consultation", href: "/book-appointment" },
-    { icon: Settings, label: "About us", href: "/about-us" },
+    { icon: Info, label: "About Us", href: "/about-us" },
+    {
+      icon: CalendarCheck,
+      label: "Book Your Appointment",
+      href: "/book-appointment",
+      isCta: true,
+    },
   ];
 
   return (
@@ -50,8 +55,8 @@ const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           {/* Sidebar Header */}
           <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
-              <span className="text-xl font-bold text-[#1e3a8a]">Health</span>
-              <span className="text-xl font-bold text-[#0ea5e9]">Manthan</span>
+              <span className="text-xl font-bold text-gray-800">Health</span>
+              <span className="text-xl font-bold text-teal-500">Manthan</span>
             </div>
             <button
               onClick={onClose}
@@ -64,14 +69,19 @@ const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           {/* Menu Items */}
           <nav className="flex-1 px-2 py-4 overflow-y-auto">
             {menuItems.map((item, index) => (
-              <a
+              <Link
                 key={index}
                 href={item.href}
-                className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-[#1e3a8a] rounded-lg transition-colors"
+                onClick={onClose}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                  item.isCta
+                    ? "bg-teal-500 text-white hover:bg-teal-600 mt-4"
+                    : "text-gray-700 hover:bg-teal-50 hover:text-teal-600"
+                }`}
               >
                 <item.icon size={20} />
                 <span className="font-medium">{item.label}</span>
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

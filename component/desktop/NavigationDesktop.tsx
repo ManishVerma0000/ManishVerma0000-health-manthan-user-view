@@ -1,41 +1,64 @@
-import { Activity, ArrowDown, ArrowRight } from "lucide-react";
+"use client";
 
-export default function NavigationDesktop() {
+import Link from "next/link";
+import { Activity, Menu } from "lucide-react";
+
+interface NavigationDesktopProps {
+  onMenuClick?: () => void;
+}
+
+export default function NavigationDesktop({ onMenuClick }: NavigationDesktopProps) {
   return (
-    <>
-      <header className="bg-white shadow-sm">
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <Activity className="w-8 h-8 text-teal-500" />
-              <span className="text-2xl font-bold">
-                <span className="text-gray-800">Health</span>
-                <span className="text-teal-500"> Manthan</span>
-              </span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="/" className="text-gray-700 hover:text-teal-500">
-                Home
-              </a>
-              <a
-                href="/surgery"
-                className="text-gray-700 hover:text-teal-500 flex items-center"
-              >
-                Surgery 
-              </a>
-              <a href="/find-doctor" className="text-gray-700 hover:text-teal-500">
-                Find Hospital
-              </a>
-              <a href="/about-us" className="text-gray-700 hover:text-teal-500">
-                About Us
-              </a>
-              <button className="bg-[#2797A9] text-white px-6 py-2 rounded hover:bg-teal-600 transition">
-                Get Consultation
-              </button>
-            </div>
+    <header className="bg-white shadow-sm sticky top-0 z-40">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex justify-between items-center">
+          {/* Mobile menu button - visible only on mobile */}
+          <button
+            onClick={onMenuClick}
+            className="md:hidden p-2 -ml-2 text-gray-700 hover:text-teal-500 hover:bg-gray-100 rounded-lg transition"
+            aria-label="Open menu"
+          >
+            <Menu size={24} />
+          </button>
+
+          {/* Logo - centered on mobile, left on desktop */}
+          <Link href="/" className="flex items-center gap-2 flex-1 md:flex-initial justify-center md:justify-start">
+            <Activity className="w-8 h-8 text-teal-500" />
+            <span className="text-xl md:text-2xl font-bold">
+              <span className="text-gray-800">Health</span>
+              <span className="text-teal-500"> Manthan</span>
+            </span>
+          </Link>
+
+          {/* Desktop navigation - hidden on mobile */}
+          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+            <Link href="/" className="text-gray-700 hover:text-teal-500 transition">
+              Home
+            </Link>
+            <Link href="/surgery" className="text-gray-700 hover:text-teal-500 transition">
+              Explore
+            </Link>
+            <Link href="#specialties" className="text-gray-700 hover:text-teal-500 transition">
+              Services
+            </Link>
+            <Link href="/find-doctor" className="text-gray-700 hover:text-teal-500 transition">
+              Doctors
+            </Link>
+            <Link href="/contact-us" className="text-gray-700 hover:text-teal-500 transition">
+              Contact Us
+            </Link>
+            <Link
+              href="/book-appointment"
+              className="bg-[#2797A9] text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium"
+            >
+              Book Your Appointment
+            </Link>
           </div>
-        </nav>
-      </header>
-    </>
+
+          {/* Spacer for mobile to balance the menu button */}
+          <div className="md:hidden w-10" />
+        </div>
+      </nav>
+    </header>
   );
 }

@@ -23,6 +23,7 @@ import {
 import OurMissionSection from "@/component/desktop/DoctorMission";
 import FooterDesktop from "@/component/desktop/FooterDesktop";
 import NavigationDesktop from "@/component/desktop/NavigationDesktop";
+import SideBarMobile from "@/component/mobile/SidebarMobile";
 import { getSurgeryList } from "@/api/services/surgery.service";
 import { useRouter } from "next/navigation";
 
@@ -162,6 +163,7 @@ const testimonials = [
 
 export default function NewDesignPage() {
   const router = useRouter();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -195,34 +197,39 @@ export default function NewDesignPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header / Navigation */}
-      <NavigationDesktop />
+      {/* Mobile Sidebar - contains desktop navigation items */}
+      <SideBarMobile
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
+      {/* Header / Navigation - responsive: hamburger on mobile, full nav on desktop */}
+      <NavigationDesktop onMenuClick={() => setIsSidebarOpen(true)} />
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="order-2 lg:order-1">
             <p className="text-gray-500 text-sm font-medium mb-2">
               Your trusted healthcare partner
             </p>
-            <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 lg:mb-6 leading-tight">
               Connecting patients with{" "}
               <span className="bg-gradient-to-r from-teal-500 to-blue-600 bg-clip-text text-transparent">
                 hospitals & doctors
               </span>
             </h1>
-            <p className="text-gray-600 mb-8 max-w-xl leading-relaxed">
+            <p className="text-gray-600 mb-6 lg:mb-8 max-w-xl leading-relaxed text-sm sm:text-base">
               Every day, we bring patient care to everyone&apos;s reach. Let us
               connect you with a healthcare provider today!
             </p>
             <Link
               href="/find-doctor"
-              className="inline-flex items-center gap-2 border-2 border-teal-500 text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition font-medium"
+              className="inline-flex items-center gap-2 border-2 border-teal-500 text-teal-600 px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg hover:bg-teal-50 transition font-medium text-sm sm:text-base"
             >
               Find a Doctor
               <ChevronRight className="w-5 h-5" />
             </Link>
           </div>
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-5 sm:p-6 md:p-8 order-1 lg:order-2">
             <h3 className="text-xl font-bold text-gray-900 mb-6">
               Book Your Appointment!
             </h3>
@@ -280,38 +287,40 @@ export default function NewDesignPage() {
         </div>
 
         {/* Feature Highlights */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12 border-t border-gray-200">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-10 sm:mt-16 pt-8 sm:pt-12 border-t border-gray-200">
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="flex items-center gap-3 text-gray-600"
+              className="flex items-center gap-2 sm:gap-3 text-gray-600"
             >
-              <div className="w-12 h-12 bg-teal-50 rounded-lg flex items-center justify-center">
-                <feature.icon className="w-6 h-6 text-teal-500" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500" />
               </div>
-              <span className="font-medium">{feature.title}</span>
+              <span className="font-medium text-sm sm:text-base">{feature.title}</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Specialized Care Areas */}
-      <section id="specialties" className="bg-gray-50 py-20">
+      <section id="specialties" className="bg-gray-50 py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+          <div className="text-center mb-8 sm:mb-14">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
               Specialized Care Areas.
             </h2>
-            <p className="text-black">Your health, our priority.</p>
+            <p className="text-gray-600 sm:text-gray-800">Your health, our priority.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
+            </div>
+          ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {surgeries?.map((item) => (
               <div
                 key={item?._id}
-                className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition group   
-  transform
-  hover:scale-105
-  active:scale-95"
+                className="bg-white rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
                 onClick={() => {
                   handleSurgeryPageDetails();
                 }}
@@ -336,31 +345,34 @@ export default function NewDesignPage() {
                 </p>
 
                 {/* Category */}
-                <p className="text-xs mt-2 text-blACK-600 font-medium">
+                <p className="text-xs mt-2 text-gray-700 font-medium">
                   {item?.surgeryCategory?.categoryName}
                 </p>
               </div>
             ))}
           </div>
-          <div className="flex justify-center items-center mt-4">
+          )}
+          {!loading && surgeries && surgeries.length > 0 && (
+          <div className="flex justify-center items-center mt-6 sm:mt-8">
             <button
               onClick={() => {
                 handleSurgeryPageDetails();
               }}
-              className="px-8 py-4 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 hover:shadow-lg transition duration-300"
+              className="px-6 py-3 sm:px-8 sm:py-4 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 hover:shadow-lg transition duration-300 text-sm sm:text-base"
             >
               View All
             </button>
           </div>
+          )}
         </div>
       </section>
 
       {/* Healthcare Simplified */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="order-2 lg:order-1">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 lg:mb-8">
                 Healthcare Simplified, Just For You!
               </h2>
               <ul className="space-y-6">
@@ -381,7 +393,7 @@ export default function NewDesignPage() {
                 ))}
               </ul>
             </div>
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2 mb-8 lg:mb-0">
               <Image
                 src="/hospital.jpg"
                 alt="Modern hospital"
@@ -395,16 +407,16 @@ export default function NewDesignPage() {
       </section>
       <OurMissionSection />
       {/* Get Care in Three Easy Steps */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-14">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8 sm:mb-14">
             Get care in three easy steps.
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {steps.map((step, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition"
+                className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-md transition"
               >
                 <div
                   className={`w-20 h-20 ${step.color} rounded-full flex items-center justify-center mb-6`}
@@ -432,18 +444,18 @@ export default function NewDesignPage() {
       </section>
 
       {/* Proven Records */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-14">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-8 sm:mb-14">
             Proven Records We Delivered
           </h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-8 text-center text-white"
+                className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-5 sm:p-8 text-center text-white"
               >
-                <div className="text-4xl lg:text-5xl font-bold mb-2">
+                <div className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">
                   {stat.value}
                 </div>
                 <div className="text-slate-300">{stat.label}</div>
@@ -454,21 +466,21 @@ export default function NewDesignPage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+          <div className="text-center mb-8 sm:mb-14">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
               What our patients say
             </h2>
             <p className="text-gray-500">Hear from our patients</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.name}
-                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition"
+                className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition"
               >
-                <div className="flex items-center gap-4 mb-4">
+                <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
                     <Image
                       src={testimonial.image}
@@ -491,13 +503,13 @@ export default function NewDesignPage() {
       </section>
 
       {/* Bottom CTA Banner */}
-      <section className="py-20">
+      <section className="py-12 sm:py-16 lg:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-r from-teal-500 to-blue-600 rounded-3xl p-12 md:p-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+          <div className="bg-gradient-to-r from-teal-500 to-blue-600 rounded-2xl sm:rounded-3xl p-8 sm:p-12 md:p-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
               Ready to take control of your health?
             </h2>
-            <p className="text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-white/90 mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base">
               Join thousands of satisfied patients who trust us for their
               healthcare needs. Get started today and experience the difference.
             </p>

@@ -1,19 +1,10 @@
+import AppLayout from "@/component/common/AppLayout";
 import ContactUsDesktop from "@/component/desktop/ContactUsDesktop";
-import ContactUsMobile from "@/component/mobile/ContactUsMobile";
 
-
-export default function Contact() {
+export default function ContactPage() {
   return (
-    <div className="w-full">
-      {/* Mobile View */}
-      <div className="block md:hidden">
-        <ContactUsMobile/>
-      </div>
-
-      {/* Web / Desktop View */}
-      <div className="hidden md:block">
-        <ContactUsDesktop />
-      </div>
-    </div>
+    <AppLayout>
+      <ContactUsDesktop />
+    </AppLayout>
   );
 }

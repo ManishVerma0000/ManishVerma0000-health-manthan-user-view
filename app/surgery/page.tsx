@@ -1,19 +1,10 @@
+import AppLayout from "@/component/common/AppLayout";
 import FindHospitalDesktop from "@/component/desktop/FindHospitalDesktop";
-import FindHospitalMobile from "@/component/mobile/FindHospitalMobile";
 
-
-export default function Home() {
+export default function SurgeryPage() {
   return (
-    <div className="w-full">
-      {/* Mobile View */}
-      <div className="block md:hidden">
-        <FindHospitalMobile />
-      </div>
-
-      {/* Web / Desktop View */}
-      <div className="hidden md:block">
-        <FindHospitalDesktop />
-      </div>
-    </div>
+    <AppLayout>
+      <FindHospitalDesktop />
+    </AppLayout>
   );
 }

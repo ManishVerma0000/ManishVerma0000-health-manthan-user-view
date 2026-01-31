@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import NavigationDesktop from "./NavigationDesktop";
 import FooterDesktop from "./FooterDesktop";
 import { useRouter } from "next/navigation";
 import api from "@/api/api";
@@ -93,17 +92,15 @@ const DoctorSearchPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NavigationDesktop />
-
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
             {/* Location Selector */}
             <div className="relative">
               <select
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-10 text-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent cursor-pointer min-w-[200px]"
+                className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-10 text-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent cursor-pointer w-full sm:min-w-[200px]"
               >
                 <option value="Delhi NCR">Delhi NCR</option>
                 <option value="Mumbai">Mumbai</option>

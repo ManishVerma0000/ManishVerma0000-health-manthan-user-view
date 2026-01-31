@@ -2,7 +2,7 @@ import React from "react";
 
 const OurMissionSection = () => {
   return (
-    <section className="relative bg-gradient-to-br from-[#001a2e] via-[#002840] to-[#003d5c] py-20 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-[#001a2e] via-[#002840] to-[#003d5c] py-12 sm:py-16 lg:py-20 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -28,12 +28,12 @@ const OurMissionSection = () => {
           >
             {/* Inner content with matching clip path */}
             <div
-              className="bg-gradient-to-br from-[#001a2e]/90 via-[#002840]/85 to-[#003d5c]/90 backdrop-blur-md p-10 md:p-12"
+              className="bg-gradient-to-br from-[#001a2e]/90 via-[#002840]/85 to-[#003d5c]/90 backdrop-blur-md p-6 sm:p-8 md:p-10 lg:p-12"
               style={{
                 clipPath: "polygon(3% 0, 100% 0, 97% 100%, 0 100%)",
               }}
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
               Our Mission
               </h2>
               <p className="text-gray-200 leading-relaxed text-base md:text-lg">

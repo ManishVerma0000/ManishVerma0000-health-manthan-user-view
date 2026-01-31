@@ -5,7 +5,6 @@ import {
   Search,
   Phone,
 } from "lucide-react";
-import NavigationDesktop from "@/component/desktop/NavigationDesktop";
 import FooterDesktop from "@/component/desktop/FooterDesktop";
 import { getSurgeryList } from "@/api/services/surgery.service";
 import { useRouter } from "next/navigation";
@@ -93,7 +92,6 @@ export default function SurgeriesPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NavigationDesktop />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <div className="text-sm text-gray-600 mb-4">

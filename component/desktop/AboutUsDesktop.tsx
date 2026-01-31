@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import NavigationDesktop from "./NavigationDesktop";
 import FooterDesktop from "./FooterDesktop";
 import { useRouter } from "next/navigation";
 
@@ -93,14 +92,11 @@ const HealthcareJourney: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen  from-sky-50 via-white to-sky-50">
-      {/* Navigation */}
-
-      <NavigationDesktop />
+    <div className="min-h-screen from-sky-50 via-white to-sky-50">
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
             Bringing clarity and compassion to your{" "}
             <span className="text-transparent bg-clip-text bg-black">
               healthcare journey
@@ -128,7 +124,7 @@ const HealthcareJourney: React.FC = () => {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 py-20" id="services">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20" id="services">
         {/* Heading */}
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -142,7 +138,7 @@ const HealthcareJourney: React.FC = () => {
         )}
 
         {/* Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {categories?.map((item) => (
             <div
               onClick={() => {
@@ -175,14 +171,14 @@ const HealthcareJourney: React.FC = () => {
       </section>
 
       {/* Why We Exist Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
         <div className="text-center mb-4">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             What drives us forward
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {whyExist.map((item, index) => (
             <div
               key={index}
@@ -267,7 +263,7 @@ const HealthcareJourney: React.FC = () => {
       </section>
 
       <section className=" from-sky-50 to-white py-20 px-15" id="team">
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.name}

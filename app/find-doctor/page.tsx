@@ -1,20 +1,10 @@
-import DoctorSearchPage from "@/component/desktop/DoctorSearchDesktop";
-import DoctorSearchMobile from "@/component/mobile/DoctorSearchMobile";
+import AppLayout from "@/component/common/AppLayout";
+import DoctorSearchDesktop from "@/component/desktop/DoctorSearchDesktop";
 
-
-
-export default function Home() {
+export default function FindDoctorPage() {
   return (
-    <div className="w-full">
-      {/* Mobile View */}
-      <div className="block md:hidden">
-        <DoctorSearchMobile />
-      </div>
-
-      {/* Web / Desktop View */}
-      <div className="hidden md:block">
-        <DoctorSearchPage />
-      </div>
-    </div>
+    <AppLayout>
+      <DoctorSearchDesktop />
+    </AppLayout>
   );
 }
