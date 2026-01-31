@@ -1,4 +1,4 @@
-import { Activity, ArrowRight } from "lucide-react";
+import { Activity, ArrowDown, ArrowRight } from "lucide-react";
 
 export default function NavigationDesktop() {
   return (
@@ -21,7 +21,7 @@ export default function NavigationDesktop() {
                 href="/surgery"
                 className="text-gray-700 hover:text-teal-500 flex items-center"
               >
-                Surgery <ArrowRight className="w-4 h-4 ml-1" />
+                Surgery 
               </a>
               <a href="/find-doctor" className="text-gray-700 hover:text-teal-500">
                 Find Hospital
@@ -29,7 +29,7 @@ export default function NavigationDesktop() {
               <a href="/about-us" className="text-gray-700 hover:text-teal-500">
                 About Us
               </a>
-              <button className="bg-teal-500 text-white px-6 py-2 rounded hover:bg-teal-600 transition">
+              <button className="bg-[#2797A9] text-white px-6 py-2 rounded hover:bg-teal-600 transition">
                 Get Consultation
               </button>
             </div>

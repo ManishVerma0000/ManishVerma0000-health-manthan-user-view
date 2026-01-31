@@ -4,19 +4,8 @@ import { Activity } from "lucide-react";
 export default function FooterDesktop() {
   return (
     <>
-      <footer className="bg-gradient-to-br from-indigo-950 to-indigo-900 text-white py-12">
+      <footer className="bg-[#0A0F3F] text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-center space-x-2 mb-8">
-            {[1, 2, 3, 4, 5, 6].map((dot) => (
-              <div
-                key={dot}
-                className={`w-2 h-2 rounded-full ${
-                  dot === 3 ? "bg-white" : "bg-indigo-700"
-                }`}
-              />
-            ))}
-          </div>
-
           <div className="flex items-center justify-center space-x-4 mb-8">
             <Activity className="w-8 h-8 text-teal-400" />
             <span className="text-2xl font-bold">Health Manthan</span>

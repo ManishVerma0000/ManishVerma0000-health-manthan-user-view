@@ -1,81 +1,46 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import FooterDesktop from "./FooterDesktop";
-import NavigationDesktop from "./NavigationDesktop";
-import { Surgery } from "@/types/surgery";
-import { getSurgeryList } from "@/api/services/surgery.service";
 
-interface StepCardProps {
-  image: string;
-  stepNumber: number;
-  title: string;
-  isActive: boolean;
-  onClick: () => void;
+import { useEffect, useState } from "react";
+import {
+  Search,
+  Phone,
+} from "lucide-react";
+import NavigationDesktop from "@/component/desktop/NavigationDesktop";
+import FooterDesktop from "@/component/desktop/FooterDesktop";
+import { getSurgeryList } from "@/api/services/surgery.service";
+import { useRouter } from "next/navigation";
+
+interface Surgery {
+  _id: string;
+  surgeryName: string;
+  paragraph: string;
+  diseaseNeme: string;
+  duration: string;
+  recoveryTime: string;
+  costingRange: string;
+  icon: string;
+  surgeryCategory: {
+    _id: string;
+    categoryName: string;
+    imageUrl: string;
+    iconImage: string;
+  };
 }
 
-const StepCard: React.FC<StepCardProps> = ({
-  image,
-  stepNumber,
-  title,
-  isActive,
-  onClick,
-}) => {
-  return (
-    <div
-      onClick={onClick}
-      className={`flex flex-col items-center cursor-pointer transition-all
-        ${isActive ? "scale-105" : "opacity-80 hover:opacity-100"}
-      `}
-    >
-      <div className="relative">
-        <div
-          className={`w-44 h-44 border-4 rounded-sm overflow-hidden
-            ${isActive ? "border-teal-600" : "border-gray-300"}
-          `}
-        >
-          {image && (
-            <img
-              src={image.trim()}
-              alt={title}
-              className="w-full h-full object-cover"
-            />
-          )}
-        </div>
+interface GroupedSurgeries {
+  [categoryId: string]: {
+    categoryName: string;
+    categoryIcon: string;
+    surgeries: Surgery[];
+  };
+}
 
-        {isActive && (
-          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-0 h-0
-            border-l-[20px] border-l-transparent
-            border-r-[20px] border-r-transparent
-            border-t-[32px] border-t-teal-600"
-          />
-        )}
-      </div>
-
-      <div
-        className={`mt-10 px-6 py-3 rounded-sm text-center w-44
-          ${isActive ? "bg-teal-600 text-white" : "bg-gray-100 text-gray-700"}
-        `}
-      >
-        <div className="text-xs font-semibold">Step {stepNumber}</div>
-        <div className="text-sm font-bold truncate">{title}</div>
-
-        <button
-          className={`mt-2 w-full text-xs font-semibold py-2 rounded-sm transition
-            ${isActive
-              ? "bg-white text-teal-600"
-              : "bg-teal-600 text-white"}
-          `}
-        >
-          Book Appointment
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const FindHospitalDesktop: React.FC = () => {
+export default function SurgeriesPage() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [surgeries, setSurgeries] = useState<Surgery[]>([]);
-  const [selectedSurgery, setSelectedSurgery] = useState<Surgery | null>(null);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -83,9 +48,10 @@ const FindHospitalDesktop: React.FC = () => {
       try {
         const res = await getSurgeryList();
         setSurgeries(res);
-        setSelectedSurgery(res[0]); // auto-select first surgery
-      } catch (error) {
-        console.error("Failed to fetch surgeries", error);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setError("Something went wrong");
       } finally {
         setLoading(false);
       }
@@ -94,66 +60,176 @@ const FindHospitalDesktop: React.FC = () => {
     fetchSurgeries();
   }, []);
 
-  return (
-    <div className="min-h-screen">
-      <NavigationDesktop />
+  const handleSurgeryPageDetails = (id: string) => {
+    router.push(`surgery/${id}`);
+  };
 
-      <div className="max-w-6xl mx-auto mt-8">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-3xl font-bold text-gray-800 mb-3">
-            Proven Records of Successful Surgery
+  // Group surgeries by category
+  const groupedSurgeries: GroupedSurgeries = surgeries.reduce((acc, surgery) => {
+    const categoryId = surgery.surgeryCategory._id;
+    
+    if (!acc[categoryId]) {
+      acc[categoryId] = {
+        categoryName: surgery.surgeryCategory.categoryName,
+        categoryIcon: surgery.surgeryCategory.iconImage || surgery.icon,
+        surgeries: []
+      };
+    }
+    
+    acc[categoryId].surgeries.push(surgery);
+    return acc;
+  }, {} as GroupedSurgeries);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading surgeries...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <NavigationDesktop />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumb */}
+        <div className="text-sm text-gray-600 mb-4">
+          <span className="hover:text-teal-600 cursor-pointer">
+            Complete Care
+          </span>
+        </div>
+
+        {/* Title and Description */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Surgeries & Procedures
           </h1>
-          <p className="text-sm text-gray-600">
-            We provide expert-guided surgeries with government panel hospitals.
+          <p className="text-gray-600 max-w-3xl">
+            Explore our comprehensive range of surgical treatments. From
+            advanced eye care to general surgery, we help you find the best
+            specialists at transparent prices.
           </p>
         </div>
 
-        {/* Loader */}
-        {loading && (
-          <div className="text-center py-20 text-gray-500">
-            Loading surgeries...
+        {/* Search Bar */}
+        <div className="mb-8">
+          <div className="flex max-w-md">
+            <input
+              type="text"
+              placeholder="Search for surgeries, symptoms, or specialties"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+            />
+            <button className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-r transition-colors">
+              Search
+            </button>
           </div>
-        )}
+        </div>
 
-        {/* Surgery Cards */}
-        {!loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            {surgeries.map((surgery, index) => (
-              <StepCard
-                key={surgery._id}
-                image={surgery.images?.[0] || surgery.icon}
-                stepNumber={index + 1}
-                title={surgery.surgeryName}
-                isActive={selectedSurgery?._id === surgery._id}
-                onClick={() => setSelectedSurgery(surgery)}
-              />
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="bg-teal-500 text-white p-4 rounded-t font-semibold">
+              Surgery Categories
+            </div>
+            <div className="bg-white rounded-b shadow-sm">
+              {Object.entries(groupedSurgeries).map(([categoryId, category]) => (
+                <div
+                  key={categoryId}
+                  onClick={() => setSelectedCategory(categoryId)}
+                  className={`p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors flex justify-between items-center ${
+                    selectedCategory === categoryId ? 'bg-gray-50' : ''
+                  }`}
+                >
+                  <span className="text-gray-700">{category.categoryName}</span>
+                  <span className="text-gray-400">{category.surgeries.length}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Need Help Card */}
+            <div className="mt-6 bg-teal-50 border border-teal-200 rounded p-4">
+              <h3 className="font-semibold text-gray-900 mb-2">Need Help?</h3>
+              <p className="text-sm text-gray-600 mb-3">
+                Talk to our medical experts for free assistance.
+              </p>
+              <div className="flex items-center text-teal-600 font-semibold">
+                <Phone className="w-4 h-4 mr-2" />
+                <span>Call 99543-43298</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content Area */}
+          <div className="lg:col-span-3">
+            {Object.entries(groupedSurgeries).map(([categoryId, category]) => (
+              <div key={categoryId} className="mb-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center p-2">
+                    <img
+                      src={category.categoryIcon}
+                      alt={category.categoryName}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <h2 className="text-2xl font-semibold text-gray-900">
+                    {category.categoryName}
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {category.surgeries.map((surgery) => (
+                    <div
+                      key={surgery._id}
+                      className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex justify-center mb-4">
+                        <div className="p-3 bg-teal-50 rounded-full">
+                          <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center p-2">
+                            <img
+                              src={surgery.icon}
+                              alt={surgery.surgeryName}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3 text-center">
+                        {surgery.surgeryName}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-4 text-center leading-relaxed line-clamp-3">
+                        {surgery.paragraph}
+                      </p>
+                      <div className="border-t border-gray-200 pt-4 mt-4">
+                        <p className="text-sm text-gray-500 mb-3 text-center font-medium">
+                          {surgery.costingRange}
+                        </p>
+                        <button
+                          onClick={() => handleSurgeryPageDetails(surgery._id)}
+                          className="w-full bg-white border border-teal-500 text-teal-600 hover:bg-teal-50 font-medium py-2 rounded transition-colors"
+                        >
+                          View Details
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
+
+            {surgeries.length === 0 && !loading && (
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">No surgeries available at the moment.</p>
+              </div>
+            )}
           </div>
-        )}
-
-        {/* Selected Surgery Details */}
-        {selectedSurgery && (
-          <div className="border-2 border-teal-300 bg-white p-8 rounded-sm shadow-sm transition">
-            <h2 className="text-2xl font-bold text-teal-700 mb-4">
-              Proven Records of Successful Surgery
-            </h2>
-
-            <p className="text-sm text-gray-600 leading-relaxed">
-              {selectedSurgery.surgeryName} surgery is performed by expert doctors
-              using advanced medical techniques. We ensure transparent pricing,
-              trusted hospitals, and complete patient support from consultation
-              to recovery.
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="mt-8">
-        <FooterDesktop />
-      </div>
+        </div>
+      </main>
+      <FooterDesktop />
     </div>
   );
-};
-
-export default FindHospitalDesktop;
+}

@@ -1,151 +1,187 @@
 "use client";
 
-import { useState } from "react";
-import { User, Phone, MapPin } from "lucide-react";
-import { createContactUs } from "@/api/services/contact-us.service";
+import React, { useState } from "react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  User,
+  Smartphone,
+  MapPinned,
+  MessageSquare,
+} from "lucide-react";
 
-const cities = ["Delhi", "Gurugram", "Noida", "Faridabad"];
-
-export default function ContactUsFormCommon() {
+export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
-    mobileNumber: "",
+    mobile: "",
+    email: "",
     city: "",
+    remark: "",
   });
 
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleCitySelect = (city: string) => {
-    setFormData({
-      ...formData,
-      city,
-    });
-  };
-
-  const handleSubmit = async () => {
-    if (!formData.name || !formData.mobileNumber || !formData.city) {
-      alert("Please fill all fields");
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const response:any = await createContactUs(formData);
-
-      if (response.success) {
-        alert("We will contact you shortly ✅");
-
-        setFormData({
-          name: "",
-          mobileNumber: "",
-          city: "",
-        });
-      } else {
-        alert(response.message || "Something went wrong");
-      }
-    } catch (error: any) {
-      console.error(error);
-      alert(error?.response?.data?.message || "Server error");
-    } finally {
-      setLoading(false);
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Add your form submission logic here
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 px-4 mt-10 mb-10">
-      <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Left Section */}
-          <div className="hidden md:flex flex-col justify-center bg-teal-600 text-white p-10">
-            <h2 className="text-3xl font-semibold mb-3">Contact Us</h2>
-            <p className="text-teal-100 mb-6">
-              Share your details and our team will reach out within 24 hours.
+    <div className="min-h-screen  from-blue-50 to-cyan-50 flex items-center justify-center p-4">
+      <div className="w-full max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="grid md:grid-cols-[350px_1fr] gap-0">
+          {/* Left Panel - Contact Info */}
+          <div className=" from-blue-100 to-cyan-100 p-8">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              Get in touch
+            </h2>
+            <p className="text-gray-600 text-sm mb-8">
+              Reach our care team for any questions about surgeries, hospitals
+              or appointments.
             </p>
 
-            <ul className="space-y-3 text-sm">
-              <li>✔ Free consultation</li>
-              <li>✔ Expert guidance</li>
-              <li>✔ Quick response</li>
-            </ul>
+            <div className="space-y-6">
+              {/* Address */}
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-blue-600 mt-1" />
+                <div>
+                  <p className="font-semibold text-gray-800 mb-1">Address</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    HealthConnect Care Desk
+                    <br />
+                    Mumbai, Maharashtra
+                  </p>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-gray-800 mb-1">Phone</p>
+                  <p className="text-gray-600 text-sm">+91 98765 43210</p>
+                  <p className="text-gray-500 text-xs mt-1">
+                    Mon–Sat, 9 AM – 8 PM
+                  </p>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-gray-800 mb-1">Email</p>
+                  <p className="text-gray-600 text-sm">
+                    support@healthconnect.com
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Right Form */}
-          <div className="p-6 md:p-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {/* Right Panel - Form */}
+          <div className="p-8 md:p-10">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">
+              Send us a message
+            </h2>
+            <p className="text-gray-600 text-sm mb-8">
+              Share your details and our care coordinator will call you back to
+              guide you on doctors, hospitals and surgery options.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name */}
-              <div>
-                <label className="text-sm text-gray-600">Name</label>
-                <div className="relative mt-1">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 text-teal-600 w-4 h-4" />
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your full name"
-                    className="w-full pl-10 pr-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-500 outline-none"
-                  />
-                </div>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  required
+                />
               </div>
 
-              {/* Mobile */}
-              <div>
-                <label className="text-sm text-gray-600">Mobile Number</label>
-                <div className="relative mt-1">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-teal-600 w-4 h-4" />
+              {/* Mobile and Email */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="relative">
+                  <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="tel"
-                    name="mobileNumber"
-                    value={formData.mobileNumber}
+                    name="mobile"
+                    placeholder="Mobile number"
+                    value={formData.mobile}
                     onChange={handleChange}
-                    placeholder="10 digit number"
-                    className="w-full pl-10 pr-3 py-2 border rounded-md focus:ring-2 focus:ring-teal-500 outline-none"
+                    className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    required
+                  />
+                </div>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    required
                   />
                 </div>
               </div>
-            </div>
 
-            {/* City */}
-            <div className="mt-6">
-              <label className="text-sm text-gray-600 mb-2 block">
-                Select City
-              </label>
-
-              <div className="flex flex-wrap gap-2">
-                {cities.map((city) => (
-                  <button
-                    key={city}
-                    type="button"
-                    onClick={() => handleCitySelect(city)}
-                    className={`px-4 py-2 rounded-full text-sm border transition ${
-                      formData.city === city
-                        ? "bg-teal-600 text-white border-teal-600"
-                        : "border-teal-300 text-teal-600 hover:bg-teal-50"
-                    }`}
-                  >
-                    <MapPin className="inline w-4 h-4 mr-1" />
-                    {city}
-                  </button>
-                ))}
+              {/* City */}
+              <div className="relative">
+                <MapPinned className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={formData.city}
+                  onChange={handleChange}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  required
+                />
               </div>
-            </div>
 
-            {/* Submit */}
-            <button
-              onClick={handleSubmit}
-              disabled={loading}
-              className="mt-8 w-full bg-teal-600 text-white py-3 rounded-md text-lg font-medium shadow-md hover:bg-teal-700 transition disabled:opacity-50"
-            >
-              {loading ? "Submitting..." : "Get Free Consultation"}
-            </button>
+              {/* Remark */}
+              <div className="relative">
+                <MessageSquare className="absolute left-3 top-4 w-5 h-5 text-gray-400" />
+                <textarea
+                  name="remark"
+                  placeholder="Remark"
+                  value={formData.remark}
+                  onChange={handleChange}
+                  rows={4}
+                  className="w-full pl-11 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <div className="flex items-center justify-between pt-4">
+                <p className="text-gray-500 text-sm">
+                  We typically respond within 15–30 minutes during working
+                  hours.
+                </p>
+                <button
+                  type="submit"
+                  className="bg-[#0E8ECF] hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
