@@ -14,34 +14,34 @@ export default function FooterDesktop() {
           <div className="flex justify-center gap-4 sm:gap-6 mb-6 sm:mb-8 flex-wrap">
             <a
               href="#"
-              className="w-10 h-10 bg-indigo-800 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
+              className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
             >
               f
             </a>
             <a
               href="#"
-              className="w-10 h-10 bg-indigo-800 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
+              className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
             >
               in
             </a>
             <a
               href="#"
-              className="w-10 h-10 bg-indigo-800 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
+              className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
             >
               📷
             </a>
             <a
               href="#"
-              className="w-10 h-10 bg-indigo-800 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
+              className="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center hover:bg-teal-500 transition"
             >
               ▶
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
             <div>
               <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Type of Surgery</h3>
-              <ul className="space-y-2 text-sm text-indigo-300">
+              <ul className="space-y-2 text-sm text-white">
                 <li>
                   <a href="#" className="hover:text-teal-400">
                     Eye Surgery
@@ -67,7 +67,7 @@ export default function FooterDesktop() {
 
             <div>
               <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Patient</h3>
-              <ul className="space-y-2 text-sm text-indigo-300">
+              <ul className="space-y-2 text-sm text-white">
                 <li>
                   <a href="#" className="hover:text-teal-400">
                     Search Hospitals
@@ -93,7 +93,7 @@ export default function FooterDesktop() {
 
             <div>
               <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Health Manthan</h3>
-              <ul className="space-y-2 text-sm text-indigo-300">
+              <ul className="space-y-2 text-sm text-white">
                 <li>
                   <a href="#" className="hover:text-teal-400">
                     About Us
@@ -119,7 +119,7 @@ export default function FooterDesktop() {
 
             <div>
               <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">For Hospitals</h3>
-              <ul className="space-y-2 text-sm text-indigo-300">
+              <ul className="space-y-2 text-sm text-white">
                 <li>
                   <a href="#" className="hover:text-teal-400">
                     Hospital Profile
@@ -135,7 +135,7 @@ export default function FooterDesktop() {
 
             <div>
               <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Contact Us</h3>
-              <ul className="space-y-2 text-sm text-indigo-300">
+              <ul className="space-y-2 text-sm text-white">
                 <li>+91 9797097975</li>
                 <li>1234567890</li>
                 <li>91 Contact Email</li>
@@ -143,7 +143,7 @@ export default function FooterDesktop() {
             </div>
           </div>
 
-          <div className="border-t border-indigo-800 pt-4 sm:pt-6 text-center text-xs sm:text-sm text-indigo-400">
+          <div className=" pt-4 sm:pt-6 text-center text-xs sm:text-sm text-white">
             Copyright © 2025 All rights reserved. Terms & Condition
           </div>
         </div>

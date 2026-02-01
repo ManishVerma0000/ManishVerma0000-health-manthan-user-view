@@ -386,7 +386,7 @@ const HealthManthan: React.FC = () => {
         </div>
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
