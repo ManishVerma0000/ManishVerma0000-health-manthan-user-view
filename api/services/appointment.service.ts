@@ -4,9 +4,12 @@ import api from "../api";
 
 export interface BookAppointmentPayload {
   name: string;
-  email: string;
+  service: string;
   phone: string;
+  branch: string;
   date: string;
+  doctorId?: string | null;
+  surgeryId?: string | null;
 }
 
 export const bookAppointment = (payload: BookAppointmentPayload) => {

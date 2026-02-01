@@ -4,19 +4,10 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Activity,
   Shield,
   Globe,
   Clock,
   Wallet,
-  Heart,
-  Stethoscope,
-  Eye,
-  Brain,
-  Bone,
-  Droplets,
-  Pill,
-  Baby,
   Check,
   ChevronRight,
 } from "lucide-react";
@@ -26,49 +17,10 @@ import NavigationDesktop from "@/component/desktop/NavigationDesktop";
 import SideBarMobile from "@/component/mobile/SidebarMobile";
 import { getSurgeryList } from "@/api/services/surgery.service";
 import { useRouter } from "next/navigation";
+import { bookAppointment } from "@/api/services/appointment.service";
+import { ToastContainer, toast } from "react-toastify";
 
-const specialties = [
-  {
-    icon: Heart,
-    title: "Cardiology",
-    description: "Specializing in heart-related conditions",
-  },
-  {
-    icon: Stethoscope,
-    title: "Dentistry",
-    description: "Complete dental care and oral health",
-  },
-  {
-    icon: Eye,
-    title: "Ophthalmology",
-    description: "Expert eye care and vision correction",
-  },
-  {
-    icon: Brain,
-    title: "Neurology",
-    description: "Treatment for brain and nervous system",
-  },
-  {
-    icon: Bone,
-    title: "Orthopedics",
-    description: "Bone, joint, and muscle specialists",
-  },
-  {
-    icon: Droplets,
-    title: "Nephrology",
-    description: "Kidney and urinary system care",
-  },
-  {
-    icon: Pill,
-    title: "Oncology",
-    description: "Cancer treatment and care",
-  },
-  {
-    icon: Baby,
-    title: "Pediatrics",
-    description: "Healthcare for children",
-  },
-];
+// import { bookAppointment } from "../services/appointment.service";
 
 const features = [
   {
@@ -169,6 +121,7 @@ export default function NewDesignPage() {
     phone: "",
     service: "",
     branch: "",
+    date:""
   });
   const [surgeries, setSurgeries] = useState<any[]>();
   const [loading, setLoading] = useState(true);
@@ -176,10 +129,35 @@ export default function NewDesignPage() {
     router.push(`surgery`);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // Handle form submission
+
+    try {
+      const payload = {
+        name: formData.name,
+        phone: formData.phone,
+        service: formData.service,
+        branch: formData.branch,
+        date:formData.date
+      };
+      const res = await bookAppointment(payload);
+      console.log("Success:", res);
+      toast("Form Submitted Successfully!");
+
+      // Reset form
+      setFormData({
+        name: "",
+        phone: "",
+        service: "",
+        branch: "",
+        date: "",
+      });
+    } catch (error) {
+      alert("Something went wrong ❌");
+      toast("Form not Submitted!");
+    }
   };
+
   useEffect(() => {
     const fetchSurgeries = async () => {
       try {
@@ -194,9 +172,14 @@ export default function NewDesignPage() {
 
     fetchSurgeries();
   }, []);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className="min-h-screen bg-white">
+      <ToastContainer />
+
       {/* Mobile Sidebar - contains desktop navigation items */}
       <SideBarMobile
         isOpen={isSidebarOpen}
@@ -276,11 +259,22 @@ export default function NewDesignPage() {
                 <option value="mumbai">Mumbai</option>
                 <option value="bangalore">Bangalore</option>
               </select>
+
+              <div>
+                <input
+                  type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </div>
+
               <button
                 type="submit"
                 className="w-full bg-teal-500 text-white py-3 rounded-lg hover:bg-teal-600 transition font-medium"
               >
-                Find a Doctor
+                Submit
               </button>
             </form>
           </div>
@@ -296,7 +290,9 @@ export default function NewDesignPage() {
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
                 <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500" />
               </div>
-              <span className="font-medium text-sm sm:text-base">{feature.title}</span>
+              <span className="font-medium text-sm sm:text-base">
+                {feature.title}
+              </span>
             </div>
           ))}
         </div>
@@ -309,60 +305,62 @@ export default function NewDesignPage() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
               Specialized Care Areas.
             </h2>
-            <p className="text-gray-600 sm:text-gray-800">Your health, our priority.</p>
+            <p className="text-gray-600 sm:text-gray-800">
+              Your health, our priority.
+            </p>
           </div>
           {loading ? (
             <div className="flex justify-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
             </div>
           ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {surgeries?.map((item) => (
-              <div
-                key={item?._id}
-                className="bg-white rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {surgeries?.map((item) => (
+                <div
+                  key={item?._id}
+                  className="bg-white rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
+                  onClick={() => {
+                    handleSurgeryPageDetails();
+                  }}
+                >
+                  {/* Icon */}
+                  <div className="w-14 h-14 bg-teal-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-teal-100 transition overflow-hidden">
+                    <img
+                      src={item?.icon}
+                      alt={item?.surgeryName}
+                      className="w-8 h-8 object-contain"
+                    />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {item?.surgeryName}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-500 text-sm line-clamp-3">
+                    {item?.paragraph}
+                  </p>
+
+                  {/* Category */}
+                  <p className="text-xs mt-2 text-gray-700 font-medium">
+                    {item?.surgeryCategory?.categoryName}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+          {!loading && surgeries && surgeries.length > 0 && (
+            <div className="flex justify-center items-center mt-6 sm:mt-8">
+              <button
                 onClick={() => {
                   handleSurgeryPageDetails();
                 }}
+                className="px-6 py-3 sm:px-8 sm:py-4 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 hover:shadow-lg transition duration-300 text-sm sm:text-base"
               >
-                {/* Icon */}
-                <div className="w-14 h-14 bg-teal-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-teal-100 transition overflow-hidden">
-                  <img
-                    src={item?.icon}
-                    alt={item?.surgeryName}
-                    className="w-8 h-8 object-contain"
-                  />
-                </div>
-
-                {/* Title */}
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  {item?.surgeryName}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-500 text-sm line-clamp-3">
-                  {item?.paragraph}
-                </p>
-
-                {/* Category */}
-                <p className="text-xs mt-2 text-gray-700 font-medium">
-                  {item?.surgeryCategory?.categoryName}
-                </p>
-              </div>
-            ))}
-          </div>
-          )}
-          {!loading && surgeries && surgeries.length > 0 && (
-          <div className="flex justify-center items-center mt-6 sm:mt-8">
-            <button
-              onClick={() => {
-                handleSurgeryPageDetails();
-              }}
-              className="px-6 py-3 sm:px-8 sm:py-4 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 hover:shadow-lg transition duration-300 text-sm sm:text-base"
-            >
-              View All
-            </button>
-          </div>
+                View All
+              </button>
+            </div>
           )}
         </div>
       </section>

@@ -10,6 +10,8 @@ import {
   MapPinned,
   MessageSquare,
 } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import { createContactUs } from "@/api/services/contact-us.service";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -29,14 +31,35 @@ export default function ContactForm() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Add your form submission logic here
+
+    try {
+      const payload = {
+        name: formData.name,
+        mobileNumber: formData.mobile,
+        email: formData.email,
+        city: formData.city,
+        remark: formData.remark,
+      };
+      const res = await createContactUs(payload);
+      console.log(res, "res");
+      toast("Message sent successfully ✅");
+      setFormData({
+        name: "",
+        mobile: "",
+        email: "",
+        city: "",
+        remark: "",
+      });
+    } catch (error) {
+      toast("Failed to send message ❌");
+    }
   };
 
   return (
     <div className="min-h-screen  from-blue-50 to-cyan-50 flex items-center justify-center p-4">
+      <ToastContainer />
       <div className="w-full max-w-5xl bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="grid md:grid-cols-[350px_1fr] gap-0">
           {/* Left Panel - Contact Info */}
@@ -176,7 +199,7 @@ export default function ContactForm() {
                 </p>
                 <button
                   type="submit"
-                  className="bg-[#0E8ECF] hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
+                  className="bg-[#0E8ECF] text-white font-medium px-8 py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"
                 >
                   Submit
                 </button>

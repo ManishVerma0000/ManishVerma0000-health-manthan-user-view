@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import FooterDesktop from "./FooterDesktop";
 import { useRouter } from "next/navigation";
+import { getCategoriesApi } from "@/api/services/category.service";
 
 interface StatCardProps {
   number: string;
@@ -32,9 +33,8 @@ const HealthcareJourney: React.FC = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch("http://localhost:3000/categories/list");
-        const data = await res.json();
-        setCategories(data?.data || []);
+        const res = await getCategoriesApi();
+        setCategories(res);
       } catch (error) {
         console.error("Error fetching categories:", error);
       } finally {
@@ -124,7 +124,10 @@ const HealthcareJourney: React.FC = () => {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20" id="services">
+      <section
+        className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20"
+        id="services"
+      >
         {/* Heading */}
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">

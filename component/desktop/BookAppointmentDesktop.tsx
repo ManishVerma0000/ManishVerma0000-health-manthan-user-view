@@ -1,18 +1,34 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Phone, Users, Shield, Calendar, Check } from "lucide-react";
 import FooterDesktop from "./FooterDesktop";
 import { bookAppointment } from "@/api/services/appointment.service";
-// import { bookAppointment } from "@/services/appointment.service";
+import { useSearchParams } from "next/navigation";
+import { toast, ToastContainer } from "react-toastify";
 
 const BookAppointmentDesktop: React.FC = () => {
+  const searchParams = useSearchParams();
+  const [id, setId] = useState<string | null>("");
+
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    branch: "",
     phone: "",
     date: "",
+    service: "",
+    doctorId: "",
   });
   const [loading, setLoading] = useState(false);
+  const doctorId = searchParams.get("doctorId");
+
+  useEffect(() => {
+    if (doctorId) {
+      setFormData((prev) => ({
+        ...prev,
+        doctorId: doctorId,
+      }));
+    }
+  }, [doctorId]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,21 +38,23 @@ const BookAppointmentDesktop: React.FC = () => {
     try {
       setLoading(true);
       const response: any = await bookAppointment(formData);
-      
+
       if (response.success) {
-        alert("Appointment booked successfully ✅");
+        toast("Appointment booked successfully ✅");
         setFormData({
           name: "",
-          email: "",
+          branch: "",
           phone: "",
           date: "",
+          service: "",
+          doctorId: "",
         });
       } else {
-        alert(response.message || "Something went wrong");
+        toast(response.message || "Something went wrong");
       }
     } catch (error: any) {
       console.error(error);
-      alert(error?.response?.data?.message || "Server error");
+      toast(error?.response?.data?.message || "Server error");
     } finally {
       setLoading(false);
     }
@@ -44,6 +62,7 @@ const BookAppointmentDesktop: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <ToastContainer />
       <div className="bg-gradient-to-r from-teal-600 to-teal-700">
         <div className="max-w-7xl mx-auto px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -100,18 +119,6 @@ const BookAppointmentDesktop: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
-
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
-                  />
-                </div>
-
                 <div>
                   <input
                     type="tel"
@@ -122,6 +129,30 @@ const BookAppointmentDesktop: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
+                <select
+                  value={formData.branch}
+                  onChange={(e) =>
+                    setFormData({ ...formData, branch: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none bg-white"
+                >
+                  <option value="">Select Branch</option>
+                  <option value="delhi">Delhi</option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="bangalore">Bangalore</option>
+                </select>
+                <select
+                  value={formData.service}
+                  onChange={(e) =>
+                    setFormData({ ...formData, service: e.target.value })
+                  }
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none bg-white"
+                >
+                  <option value="">Select Service</option>
+                  <option value="consultation">General Consultation</option>
+                  <option value="surgery">Surgery</option>
+                  <option value="checkup">Health Checkup</option>
+                </select>
 
                 <div>
                   <input

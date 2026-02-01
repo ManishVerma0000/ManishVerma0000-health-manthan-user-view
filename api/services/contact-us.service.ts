@@ -6,6 +6,6 @@ export interface ContactUsPayload {
   city: string;
 }
 
-export const createContactUs = (payload: ContactUsPayload) => {
+export const createContactUs = (payload: any) => {
   return api.post("/contact-us", payload);
 };
