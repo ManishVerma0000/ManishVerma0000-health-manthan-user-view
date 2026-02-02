@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL:'http://localhost:3000',
-  // baseURL: "https://api.healthvandanam.com", // e.g. https://api.example.com
+  // baseURL:'http://localhost:3000',
+  baseURL: "https://api.healthvandanam.com", // e.g. https://api.example.com
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
