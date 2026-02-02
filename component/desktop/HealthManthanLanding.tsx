@@ -327,7 +327,7 @@ export default function NewDesignPage() {
                   }}
                 >
                   {/* Icon Wrapper */}
-                  <div className="flex justify-center lg:justify-start mb-4">
+                  <div className="flex justify-center  mb-4">
                     <div className="w-14 h-14 bg-teal-50 rounded-lg flex items-center justify-center group-hover:bg-teal-100 transition overflow-hidden">
                       <img
                         src={item?.icon}
