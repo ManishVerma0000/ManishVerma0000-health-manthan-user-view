@@ -19,17 +19,18 @@ import { getSurgeryList } from "@/api/services/surgery.service";
 import { useRouter } from "next/navigation";
 import { bookAppointment } from "@/api/services/appointment.service";
 import { ToastContainer, toast } from "react-toastify";
+import BookingModal from "../common/Bookingmodal";
 
 // import { bookAppointment } from "../services/appointment.service";
 
 const features = [
   {
     icon: Shield,
-    title: "Expert Specialists",
+    title: "Get Free Consulations ",
   },
   {
     icon: Globe,
-    title: "Trusted Technology",
+    title: "Verified Doctor",
   },
   {
     icon: Clock,
@@ -37,7 +38,7 @@ const features = [
   },
   {
     icon: Wallet,
-    title: "Affordable Price",
+    title: "Cashless Treatment Facility",
   },
 ];
 
@@ -157,6 +158,8 @@ export default function NewDesignPage() {
       toast("Form not Submitted!");
     }
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchSurgeries = async () => {
@@ -285,7 +288,7 @@ export default function NewDesignPage() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="flex items-center gap-2 sm:gap-3 text-gray-600"
+              className="flex items-center gap-2 sm:gap-3 text-[#00008B]"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
                 <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal-500" />
@@ -516,20 +519,25 @@ export default function NewDesignPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/book-appointment"
-                className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition font-medium"
+                className="inline-block bg-white text-black px-8 py-3 rounded-lg hover:bg-gray-100 transition font-medium"
               >
-                Get Started
+                Get Consultations
               </Link>
-              <Link
-                href="/about-us"
-                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition font-medium"
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className=" text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium border-2"
               >
-                Learn More
-              </Link>
+                Book Your Appointment
+              </button>
             </div>
           </div>
         </div>
       </section>
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+
       <FooterDesktop />
     </div>
   );

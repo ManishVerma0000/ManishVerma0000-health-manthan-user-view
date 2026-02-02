@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Activity, Menu } from "lucide-react";
+import { Activity, Menu, Phone } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import BookingModal from "../common/Bookingmodal";
@@ -75,12 +75,6 @@ export default function NavigationDesktop({
               Explore
             </Link>
             <Link
-              href="#specialties"
-              className="text-gray-700 hover:text-teal-500 transition"
-            >
-              Services
-            </Link>
-            <Link
               href="/find-doctor"
               className="text-gray-700 hover:text-teal-500 transition"
             >
@@ -92,6 +86,10 @@ export default function NavigationDesktop({
             >
               Contact Us
             </Link>
+            <button className=" text-[#2797A9] px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium border-2 flex justify-between border-r-2">
+              <Phone />
+              +91 7056323473
+            </button>
             <button
               onClick={() => setIsModalOpen(true)}
               className="bg-[#2797A9] text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium"

@@ -27,12 +27,6 @@ const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { icon: Users, label: "Doctors", href: "/find-doctor" },
     { icon: Phone, label: "Contact Us", href: "/contact-us" },
     { icon: Info, label: "About Us", href: "/about-us" },
-    {
-      icon: CalendarCheck,
-      label: "Book Your Appointment",
-      href: "/book-appointment",
-      isCta: true,
-    },
   ];
 
   return (
@@ -73,17 +67,36 @@ const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 key={index}
                 href={item.href}
                 onClick={onClose}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                  item.isCta
-                    ? "bg-teal-500 text-white hover:bg-teal-600 mt-4"
-                    : "text-gray-700 hover:bg-teal-50 hover:text-teal-600"
-                }`}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-gray-700 hover:bg-teal-50 hover:text-teal-600"
               >
                 <item.icon size={20} />
                 <span className="font-medium">{item.label}</span>
               </Link>
             ))}
           </nav>
+
+          {/* Bottom Action Buttons */}
+          <div className="px-4 py-4 border-t border-gray-200 space-y-3">
+            {/* Call Now Button */}
+            <Link
+              href="tel:+1234567890"
+              onClick={onClose}
+              className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-teal-500 text-teal-500 rounded-lg hover:bg-teal-50 transition-colors font-medium"
+            >
+              <Phone size={20} />
+              <span>Call Now</span>
+            </Link>
+
+            {/* Book Appointment Button */}
+            <Link
+              href="/book-appointment"
+              onClick={onClose}
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors font-medium"
+            >
+              <CalendarCheck size={20} />
+              <span>Book Appointment</span>
+            </Link>
+          </div>
         </div>
       </aside>
     </>
