@@ -1,5 +1,7 @@
 // import ContactUsForm from "@/app/contact-us/page";
 
+
+"use client"
 import ContactUsFormCommon from "../common/ContactUs";
 import FooterDesktop from "./FooterDesktop";
 

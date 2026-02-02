@@ -121,7 +121,7 @@ export default function NewDesignPage() {
     phone: "",
     service: "",
     branch: "",
-    date:""
+    date: "",
   });
   const [surgeries, setSurgeries] = useState<any[]>();
   const [loading, setLoading] = useState(true);
@@ -138,7 +138,7 @@ export default function NewDesignPage() {
         phone: formData.phone,
         service: formData.service,
         branch: formData.branch,
-        date:formData.date
+        date: formData.date,
       };
       const res = await bookAppointment(payload);
       console.log("Success:", res);
@@ -314,7 +314,7 @@ export default function NewDesignPage() {
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-500"></div>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {surgeries?.map((item) => (
                 <div
                   key={item?._id}
@@ -323,27 +323,29 @@ export default function NewDesignPage() {
                     handleSurgeryPageDetails();
                   }}
                 >
-                  {/* Icon */}
-                  <div className="w-14 h-14 bg-teal-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-teal-100 transition overflow-hidden">
-                    <img
-                      src={item?.icon}
-                      alt={item?.surgeryName}
-                      className="w-8 h-8 object-contain"
-                    />
+                  {/* Icon Wrapper */}
+                  <div className="flex justify-center lg:justify-start mb-4">
+                    <div className="w-14 h-14 bg-teal-50 rounded-lg flex items-center justify-center group-hover:bg-teal-100 transition overflow-hidden">
+                      <img
+                        src={item?.icon}
+                        alt={item?.surgeryName}
+                        className="w-8 h-8 object-contain"
+                      />
+                    </div>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  {/* Title (Hide on Mobile) */}
+                  <h3 className=" lg:block text-gray-500 text-center  font-semibold  mb-2">
                     {item?.surgeryName}
                   </h3>
 
-                  {/* Description */}
-                  <p className="text-gray-500 text-sm line-clamp-3">
+                  {/* Description (Optional: Hide on Mobile if needed) */}
+                  <p className="hidden lg:block text-gray-500 text-sm line-clamp-3">
                     {item?.paragraph}
                   </p>
 
-                  {/* Category */}
-                  <p className="text-xs mt-2 text-gray-700 font-medium">
+                  {/* Category (Hide on Mobile) */}
+                  <p className="hidden lg:block text-xs mt-2 text-gray-700 font-medium">
                     {item?.surgeryCategory?.categoryName}
                   </p>
                 </div>
