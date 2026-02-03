@@ -68,8 +68,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-      <div className="bg-white rounded-t-2xl md:rounded-lg shadow-xl w-full max-w-md md:max-w-4xl max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+      <div className="bg-white rounded-t-2xl md:rounded-lg shadow-xl w-full max-w-md md:max-w-4xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="bg-[#2c3e7e] text-white px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Book Appointment</h2>
