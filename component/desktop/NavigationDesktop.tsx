@@ -35,7 +35,7 @@ export default function NavigationDesktop({
           >
             {/* Logo */}
             <Image
-              src={"logo.svg"}
+              src={"/logo.svg"}
               alt="Health Manthan Logo"
               width={300}
               height={300}
