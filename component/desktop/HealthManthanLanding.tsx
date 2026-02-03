@@ -12,14 +12,12 @@ import {
   ChevronRight,
 } from "lucide-react";
 import OurMissionSection from "@/component/desktop/DoctorMission";
-import FooterDesktop from "@/component/desktop/FooterDesktop";
-import NavigationDesktop from "@/component/desktop/NavigationDesktop";
-import SideBarMobile from "@/component/mobile/SidebarMobile";
 import { getSurgeryList } from "@/api/services/surgery.service";
 import { useRouter } from "next/navigation";
 import { bookAppointment } from "@/api/services/appointment.service";
 import { ToastContainer, toast } from "react-toastify";
 import BookingModal from "../common/Bookingmodal";
+import FooterDesktop from "./FooterDesktop";
 
 // import { bookAppointment } from "../services/appointment.service";
 
@@ -116,7 +114,6 @@ const testimonials = [
 
 export default function NewDesignPage() {
   const router = useRouter();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -183,13 +180,6 @@ export default function NewDesignPage() {
     <div className="min-h-screen bg-white">
       <ToastContainer />
 
-      {/* Mobile Sidebar - contains desktop navigation items */}
-      <SideBarMobile
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-      />
-      {/* Header / Navigation - responsive: hamburger on mobile, full nav on desktop */}
-      <NavigationDesktop onMenuClick={() => setIsSidebarOpen(true)} />
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">

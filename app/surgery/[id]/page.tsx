@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Check, Phone, ChevronDown, ChevronUp, Star } from "lucide-react";
-import NavigationDesktop from "@/component/desktop/NavigationDesktop";
-import FooterDesktop from "@/component/desktop/FooterDesktop";
+import AppLayout from "@/component/common/AppLayout";
 import { useParams } from "next/navigation";
 import { bookAppointment } from "@/api/services/appointment.service";
 import { toast, ToastContainer } from "react-toastify";
@@ -161,34 +160,38 @@ export default function CataractSurgeryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading surgery details...</p>
+      <AppLayout>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading surgery details...</p>
+          </div>
         </div>
-      </div>
+      </AppLayout>
     );
   }
 
   if (error || !surgeryData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 text-lg">
-            {error || "Failed to load surgery data"}
-          </p>
+      <AppLayout>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-600 text-lg">
+              {error || "Failed to load surgery data"}
+            </p>
+          </div>
         </div>
-      </div>
+      </AppLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <ToastContainer />
-      <NavigationDesktop />
+    <AppLayout>
+      <div className="min-h-screen bg-gray-50">
+        <ToastContainer />
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Main Content */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Content - 2/3 width */}
           <div className="lg:col-span-2">
@@ -622,8 +625,7 @@ export default function CataractSurgeryPage() {
           </div>
         </div>
       </main>
-
-      <FooterDesktop />
-    </div>
+      </div>
+    </AppLayout>
   );
 }

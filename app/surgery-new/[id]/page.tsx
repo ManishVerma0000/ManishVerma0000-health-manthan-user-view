@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { Check, Phone, ChevronDown, ChevronUp, Star } from 'lucide-react';
-import NavigationDesktop from '@/component/desktop/NavigationDesktop';
-import FooterDesktop from '@/component/desktop/FooterDesktop';
+import AppLayout from '@/component/common/AppLayout';
 
 export default function CataractSurgeryPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -47,12 +46,12 @@ export default function CataractSurgeryPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <NavigationDesktop/>
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <AppLayout>
+      <div className="min-h-screen bg-gray-50">
+        {/* Main Content */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Content - 2/3 width */}
+            {/* Left Content - 2/3 width */}
           <div className="lg:col-span-2">
             {/* Title Section */}
             <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
@@ -254,7 +253,7 @@ export default function CataractSurgeryPage() {
             </div>
           </div>
 
-          {/* Right Sidebar - 1/3 width */}
+            {/* Right Sidebar - 1/3 width */}
           <div className="lg:col-span-1">
             {/* Consultation Form */}
             <div className="bg-white rounded-lg shadow-sm p-6 sticky top-8">
@@ -335,9 +334,8 @@ export default function CataractSurgeryPage() {
             </div>
           </div>
         </div>
-      </main>
-
-      <FooterDesktop/>
-    </div>
+        </main>
+      </div>
+    </AppLayout>
   );
 }
