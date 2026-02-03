@@ -3,11 +3,10 @@ import api from "../api";
 
 export const getSurgeryList = async () => {
   const response = await api.get(`/surgery/list`);
-  return response.data;
+  return response?.data ?? response;
 };
-
 
 export const getSurgeryById = async (surgeryId: string) => {
   const response = await api.get(`/surgery/${surgeryId}`);
-  return response.data; // returns { success, data, message }
+  return response?.data ?? response;
 };

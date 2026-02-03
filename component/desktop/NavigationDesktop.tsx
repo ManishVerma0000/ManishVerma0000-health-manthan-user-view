@@ -1,64 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { Activity, Menu, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import BookingModal from "../common/Bookingmodal";
 
-interface NavigationDesktopProps {
-  onMenuClick?: () => void;
-}
-
-export default function NavigationDesktop({
-  onMenuClick,
-}: NavigationDesktopProps) {
+export default function NavigationDesktop() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-40">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
         <div className="flex justify-between items-center">
-          {/* Mobile menu button - visible only on mobile */}
-          <button
-            onClick={onMenuClick}
-            className="md:hidden p-2 -ml-2 text-gray-700 hover:text-teal-500 hover:bg-gray-100 rounded-lg transition"
-            aria-label="Open menu"
-          >
-            <Menu size={24} />
-          </button>
-
-          {/* Logo - centered on mobile, left on desktop */}
+          {/* Logo - centered on mobile, left on desktop (no sidebar or Find Doctor on mobile) */}
           <Link
             href="/"
             className="flex items-center gap-2 flex-1 md:flex-initial justify-center md:justify-start"
           >
-            {/* Logo */}
             <Image
               src={"/logo.svg"}
               alt="Health Manthan Logo"
               width={300}
               height={300}
-              className="object-contain"
+              className="object-contain max-h-10 w-auto"
             />
           </Link>
-          <div className="md:hidden flex  items-left mt-4 ml-4">
-            <button
-              className="
-                px-4 py-2
-                border-2 border-teal-500
-                text-teal-500
-                font-semibold
-                rounded-full
-                bg-white
-                hover:bg-teal-50
-                transition
-                shadow-sm
-              "
-            >
-              Find Doctor
-            </button>
-          </div>
 
           {/* Desktop navigation - hidden on mobile */}
           <div className="hidden md:flex items-center gap-6 lg:gap-8">
@@ -101,9 +68,6 @@ export default function NavigationDesktop({
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />
-
-          {/* Spacer for mobile to balance the menu button */}
-          <div className="md:hidden w-10" />
         </div>
       </nav>
     </header>

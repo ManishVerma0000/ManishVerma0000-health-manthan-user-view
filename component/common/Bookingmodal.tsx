@@ -33,18 +33,17 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       setLoading(true);
       const response: any = await bookAppointment(formData);
 
-      if (response.success) {
+      if (response?.success) {
         toast("Appointment booked successfully ✅");
         setFormData({
           name: "",
-          // branch: "",
           phone: "",
           date: "",
           service: "",
           branch: "",
         });
       } else {
-        toast(response.message || "Something went wrong");
+        toast(response?.message || "Something went wrong");
       }
     } catch (error: any) {
       console.error(error);
@@ -57,14 +56,14 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e?.target?.name ?? ""]: e?.target?.value ?? "",
     });
   };
 
   if (!isOpen) return null;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e?.target?.name ?? ""]: e?.target?.value ?? "" });
   };
 
   return (

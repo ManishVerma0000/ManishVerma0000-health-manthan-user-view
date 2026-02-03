@@ -87,10 +87,9 @@ export default function CataractSurgeryPage() {
       try {
         setLoading(true);
         const response = await getSurgeryById(surgeryId);
-        console.log(response,'response')
-        setSurgeryData(response);
+        setSurgeryData(response?.data ?? response ?? null);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        setError(err instanceof Error ? err?.message : "An error occurred");
       } finally {
         setLoading(false);
       }
@@ -200,55 +199,55 @@ export default function CataractSurgeryPage() {
               <div className="flex items-start gap-4 mb-4">
                 <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center p-2 flex-shrink-0">
                   <img
-                    src={surgeryData.icon}
-                    alt={surgeryData.surgeryName}
+                    src={surgeryData?.icon}
+                    alt={surgeryData?.surgeryName}
                     className="w-full h-full object-contain"
                   />
                 </div>
                 <div className="flex-1">
                   <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                    {surgeryData.surgeryName}
+                    {surgeryData?.surgeryName}
                   </h1>
                   <p className="text-sm text-teal-600 font-medium">
-                    {surgeryData.diseaseNeme}
+                    {surgeryData?.diseaseNeme}
                   </p>
                 </div>
               </div>
 
               <p className="text-gray-600 leading-relaxed mb-6">
-                {surgeryData.paragraph}
+                {surgeryData?.paragraph}
               </p>
 
               <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200">
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Duration</p>
                   <p className="font-semibold text-gray-900">
-                    {surgeryData.duration}
+                    {surgeryData?.duration}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Treated By</p>
                   <p className="font-semibold text-gray-900">
-                    {surgeryData.treatedBy.treatedByName}
+                    {surgeryData?.treatedBy?.treatedByName}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Recovery Time</p>
                   <p className="font-semibold text-gray-900">
-                    {surgeryData.recoveryTime}
+                    {surgeryData?.recoveryTime}
                   </p>
                 </div>
               </div>
             </div>
 
             {/* Images Gallery */}
-            {surgeryData.images && surgeryData.images.length > 0 && (
+            {surgeryData?.images?.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   Procedure Images
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
-                  {surgeryData.images.map((image, index) => (
+                  {surgeryData?.images?.map((image, index) => (
                     <img
                       key={index}
                       src={image}
@@ -261,22 +260,22 @@ export default function CataractSurgeryPage() {
             )}
 
             {/* Symptoms */}
-            {surgeryData.symptoms && surgeryData.symptoms.length > 0 && (
+            {surgeryData?.symptoms?.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   Symptoms
                 </h2>
                 <div className="space-y-4">
-                  {surgeryData.symptoms.map((symptom) => (
+                  {surgeryData?.symptoms?.map((symptom) => (
                     <div
-                      key={symptom._id}
+                      key={symptom?._id}
                       className="border-l-4 border-teal-500 pl-4"
                     >
                       <h3 className="font-semibold text-gray-900 mb-2">
-                        {symptom.subcategory}
+                        {symptom?.subcategory}
                       </h3>
                       <p className="text-sm text-gray-600">
-                        {symptom.paragraph}
+                        {symptom?.paragraph}
                       </p>
                     </div>
                   ))}
@@ -285,13 +284,13 @@ export default function CataractSurgeryPage() {
             )}
 
             {/* Benefits */}
-            {surgeryData.benefits && surgeryData.benefits.length > 0 && (
+            {surgeryData?.benefits?.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   Benefits
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {surgeryData.benefits.map((benefit, index) => (
+                  {surgeryData?.benefits?.map((benefit, index) => (
                     <div key={index} className="flex gap-4">
                       <div className="flex-shrink-0">
                         <div className="w-12 h-12 bg-teal-50 rounded-full flex items-center justify-center">
@@ -308,13 +307,13 @@ export default function CataractSurgeryPage() {
             )}
 
             {/* Risks */}
-            {surgeryData.risks && surgeryData.risks.length > 0 && (
+            {surgeryData?.risks?.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   Risks & Considerations
                 </h2>
                 <div className="space-y-3">
-                  {surgeryData.risks.map((risk, index) => (
+                  {surgeryData?.risks?.map((risk, index) => (
                     <div key={index} className="flex gap-3">
                       <span className="text-orange-500 font-bold">•</span>
                       <p className="text-sm text-gray-600">{risk}</p>
@@ -325,16 +324,15 @@ export default function CataractSurgeryPage() {
             )}
 
             {/* Procedure Timeline */}
-            {surgeryData.procedureTimeline &&
-              surgeryData.procedureTimeline.length > 0 && (
+            {surgeryData?.procedureTimeline?.length > 0 && (
                 <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">
                     Procedure Timeline
                   </h2>
                   <div className="space-y-4">
-                    {surgeryData.procedureTimeline.map((timeline, index) => (
+                    {surgeryData?.procedureTimeline?.map((timeline, index) => (
                       <div
-                        key={timeline._id}
+                        key={timeline?._id}
                         className="border border-gray-200 rounded-lg p-6"
                       >
                         <div className="flex items-start gap-4">
@@ -343,13 +341,13 @@ export default function CataractSurgeryPage() {
                           </div>
                           <div className="flex-1">
                             <h3 className="font-semibold text-gray-900 mb-2">
-                              {timeline.step}
+                              {timeline?.step}
                             </h3>
                             <div className="grid grid-cols-2 gap-4 text-sm">
                               <div>
                                 <span className="text-gray-500">Type: </span>
                                 <span className="text-gray-900">
-                                  {timeline.typeProcedure}
+                                  {timeline?.typeProcedure}
                                 </span>
                               </div>
                               <div>
@@ -357,13 +355,13 @@ export default function CataractSurgeryPage() {
                                   Duration:{" "}
                                 </span>
                                 <span className="text-gray-900">
-                                  {timeline.duration}
+                                  {timeline?.duration}
                                 </span>
                               </div>
                             </div>
                             <p className="text-sm text-gray-600 mt-2">
                               <span className="font-medium">Medication: </span>
-                              {timeline.medication}
+                              {timeline?.medication}
                             </p>
                           </div>
                         </div>
@@ -374,26 +372,25 @@ export default function CataractSurgeryPage() {
               )}
 
             {/* Recovery Timeline */}
-            {surgeryData.recoveryTimeline &&
-              surgeryData.recoveryTimeline.length > 0 && (
+            {surgeryData?.recoveryTimeline?.length > 0 && (
                 <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
                   <h2 className="text-2xl font-bold text-gray-900 mb-6">
                     Recovery Timeline
                   </h2>
                   <div className="space-y-4">
-                    {surgeryData.recoveryTimeline.map((recovery) => (
+                    {surgeryData?.recoveryTimeline?.map((recovery) => (
                       <div
-                        key={recovery._id}
+                        key={recovery?._id}
                         className="border border-gray-200 rounded-lg p-6"
                       >
                         <h3 className="font-semibold text-gray-900 mb-3">
-                          {recovery.stage}
+                          {recovery?.stage}
                         </h3>
                         <p className="text-sm text-gray-600 mb-2">
-                          {recovery.mention}
+                          {recovery?.mention}
                         </p>
                         <p className="text-sm text-teal-600 font-medium">
-                          Care: {recovery.lightCare}
+                          Care: {recovery?.lightCare}
                         </p>
                       </div>
                     ))}
@@ -408,7 +405,7 @@ export default function CataractSurgeryPage() {
               </h2>
 
               <div className="space-y-6">
-                {specialists.map((specialist, index) => (
+                {specialists?.map((specialist, index) => (
                   <div
                     key={index}
                     className="flex gap-4 p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
@@ -421,23 +418,23 @@ export default function CataractSurgeryPage() {
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-semibold text-gray-900">
-                          {specialist.name}
+                          {specialist?.name}
                         </h3>
                         <div className="flex items-center gap-1 text-yellow-500">
                           <Star className="w-4 h-4 fill-current" />
                           <span className="text-sm font-medium text-gray-900">
-                            {specialist.rating}
+                            {specialist?.rating}
                           </span>
                         </div>
                       </div>
                       <p className="text-sm text-teal-600 font-medium mb-1">
-                        {specialist.title}
+                        {specialist?.title}
                       </p>
                       <p className="text-sm text-gray-600 mb-1">
-                        {specialist.credentials}
+                        {specialist?.credentials}
                       </p>
                       <p className="text-sm text-gray-500">
-                        {specialist.specialties}
+                        {specialist?.specialties}
                       </p>
                     </div>
                   </div>
@@ -446,16 +443,16 @@ export default function CataractSurgeryPage() {
             </div>
 
             {/* FAQ Section */}
-            {surgeryData.faqs && surgeryData.faqs.length > 0 && (
+            {surgeryData?.faqs?.length > 0 && (
               <div className="bg-white rounded-lg shadow-sm p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
                   Frequently Asked Questions
                 </h2>
 
                 <div className="space-y-4">
-                  {surgeryData.faqs.map((faq, index) => (
+                  {surgeryData?.faqs?.map((faq, index) => (
                     <div
-                      key={faq._id}
+                      key={faq?._id}
                       className="border border-gray-200 rounded-lg"
                     >
                       <button
@@ -465,7 +462,7 @@ export default function CataractSurgeryPage() {
                         className="w-full flex justify-between items-center p-4 text-left hover:bg-gray-50 transition-colors"
                       >
                         <span className="font-medium text-gray-900">
-                          {faq.question}
+                          {faq?.question}
                         </span>
                         {expandedFaq === index ? (
                           <ChevronUp className="w-5 h-5 text-gray-400 flex-shrink-0" />
@@ -475,7 +472,7 @@ export default function CataractSurgeryPage() {
                       </button>
                       {expandedFaq === index && (
                         <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
-                          {faq.answer}
+                          {faq?.answer}
                         </div>
                       )}
                     </div>
@@ -599,7 +596,7 @@ export default function CataractSurgeryPage() {
                   <span className="text-sm text-gray-600">Treatment Cost</span>
                   <div className="text-right">
                     <span className="text-xl font-bold text-gray-900">
-                      {surgeryData.costingRange}
+                      {surgeryData?.costingRange}
                     </span>
                   </div>
                 </div>
