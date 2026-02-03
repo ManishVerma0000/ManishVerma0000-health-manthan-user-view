@@ -68,8 +68,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4  bg-opacity-50 backdrop-blur-sm">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+      <div className="bg-white rounded-t-2xl md:rounded-lg shadow-xl w-full max-w-md md:max-w-4xl max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="bg-[#2c3e7e] text-white px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Book Appointment</h2>
@@ -84,8 +84,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
         {/* Content */}
         <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
-          {/* Left Section - Info */}
-          <div className="p-6 md:p-8 bg-gray-50">
+          {/* Left Section - Info (desktop only) */}
+          <div className="hidden md:block p-6 md:p-8 bg-gray-50">
             <h3 className="text-2xl font-bold text-gray-800 mb-2">
               Simplifying Surgery Experience
             </h3>
@@ -135,7 +135,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* Right Section - Form */}
-          <div className="p-6 md:p-8">
+          {/* Right Section - Form (full width on mobile) */}
+          <div className="p-5 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name Field */}
               <div>
