@@ -248,11 +248,11 @@ const DoctorSearchPage: React.FC = () => {
               return (
                 <div
                   key={doctor._id}
-                  className="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow p-6"
+                  className="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow p-4 sm:p-6"
                 >
-                  <div className="flex items-start gap-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                     {/* Doctor Image */}
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 w-full sm:w-auto flex justify-center sm:justify-start">
                       <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-br from-cyan-100 to-blue-100">
                         {doctor.imageUrl?.[0] ? (
                           <img
@@ -281,7 +281,7 @@ const DoctorSearchPage: React.FC = () => {
                     </div>
 
                     {/* Doctor Info */}
-                    <div className="flex-grow">
+                    <div className="flex-grow w-full sm:w-auto">
                       <h2 className="text-xl font-bold text-gray-900 mb-1">
                         Dr. {doctor.name}
                       </h2>
@@ -314,10 +314,10 @@ const DoctorSearchPage: React.FC = () => {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm text-gray-600 mb-3">
                         <div className="flex items-center gap-1">
                           <svg
-                            className="w-4 h-4"
+                            className="w-4 h-4 flex-shrink-0"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -337,7 +337,7 @@ const DoctorSearchPage: React.FC = () => {
                         {doctor.timings && doctor.timings.length > 0 && (
                           <div className="flex items-center gap-1">
                             <svg
-                              className="w-4 h-4"
+                              className="w-4 h-4 flex-shrink-0"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -365,17 +365,17 @@ const DoctorSearchPage: React.FC = () => {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex-shrink-0 flex flex-col gap-3 min-w-[200px]">
+                    <div className="flex-shrink-0 flex flex-col gap-3 w-full sm:w-auto sm:min-w-[200px]">
                       <button
                         onClick={() => redirectToConsultation(doctor._id)}
-                        className="px-6 py-2.5 border-2 border-[#0F8F8F] text-[#0F8F8F] rounded-md font-medium hover:bg-cyan-50 transition-colors text-sm"
+                        className="w-full px-6 py-2.5 border-2 border-[#0F8F8F] text-[#0F8F8F] rounded-md font-medium hover:bg-cyan-50 transition-colors text-sm"
                       >
                         Get Free Consultation
                       </button>
 
                       <button
                         onClick={() => redirectToBookAppointment(doctor._id)}
-                        className="px-6 py-2.5 bg-[#0F8F8F] text-white rounded-md font-medium hover:bg-cyan-600 transition-colors text-sm"
+                        className="w-full px-6 py-2.5 bg-[#0F8F8F] text-white rounded-md font-medium hover:bg-cyan-600 transition-colors text-sm"
                       >
                         Book Appointment
                       </button>

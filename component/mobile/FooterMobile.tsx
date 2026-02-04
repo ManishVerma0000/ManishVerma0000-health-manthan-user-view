@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="text-xl font-bold text-[#1e3a8a]">
-            Health Manthan
+            Health Vandanam
           </span>
         </div>
         <div className="flex items-center gap-1">

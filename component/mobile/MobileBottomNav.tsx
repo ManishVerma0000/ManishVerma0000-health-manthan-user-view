@@ -3,7 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, LayoutGrid, Users, Info, Phone, CalendarCheck } from "lucide-react";
+import {
+  Home,
+  LayoutGrid,
+  Users,
+  Info,
+  Phone,
+  CalendarCheck,
+} from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 interface MobileBottomNavProps {
@@ -35,12 +42,11 @@ export default function MobileBottomNav({
       <button
         type="button"
         onClick={onWhatsApp}
-        className="fixed bottom-40 right-4 z-50 md:hidden w-12 h-12 bg-white rounded-xl shadow-lg border border-gray-100 flex items-center justify-center text-[#25D366] hover:bg-gray-50 transition active:scale-95"
+        className="fixed bottom-40 right-4 z-50 md:hidden w-12 h-12 bg-[#25D366] rounded-xl shadow-lg border border-gray-100 flex items-center justify-center text-white hover:bg-[#20BD5A] transition active:scale-95"
         aria-label="Chat on WhatsApp"
       >
-        <FaWhatsapp className="w-7 h-7 " />
+        <FaWhatsapp className="w-7 h-7" />
       </button>
-
       {/* Bottom Navigation Container */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 pb-safe z-40 md:hidden">
         {/* Action buttons: Call Now + Book Appointment */}
@@ -55,7 +61,8 @@ export default function MobileBottomNav({
           <button
             type="button"
             onClick={onBookAppointment}
-            className="flex items-center justify-center gap-2 py-3 px-4 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition-colors"
+            style={{ color: "#ffffff" }}
+            className="flex items-center justify-center gap-2 py-3 px-4 border-2 border-teal-600 text-teal-600 rounded-lg font-medium hover:bg-teal-50 transition-colors"
           >
             <CalendarCheck className="w-5 h-5" />
             Book Appointment
