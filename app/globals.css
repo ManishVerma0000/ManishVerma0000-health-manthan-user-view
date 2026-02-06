@@ -41,3 +41,24 @@ footer,
 footer * {
   color: #ffffff !important;
 }
+
+
+
+/* Dark sections override */
+.dark-section,
+.dark-section * {
+  color: inherit !important;
+}
+
+.dark-section p {
+  color: #e5e7eb !important; /* This is Tailwind's gray-200 */
+}
+
+.dark-section h1,
+.dark-section h2,
+.dark-section h3,
+.dark-section h4,
+.dark-section h5,
+.dark-section h6 {
+  color: #ffffff !important;
+}

@@ -2,8 +2,11 @@ import React from "react";
 
 const OurMissionSection = () => {
   return (
-    <section className="relative bg-gradient-to-br from-[#001a2e] via-[#002840] to-[#003d5c] py-12 sm:py-16 lg:py-20 overflow-hidden">
-      {/* Background Image */}
+    
+    <section className="dark-section
+    text-white
+    relative bg-gradient-to-br from-[#001a2e] via-[#002840] to-[#003d5c] py-12 sm:py-16 lg:py-20 overflow-hidden">
+    {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src="doctormission.png"
