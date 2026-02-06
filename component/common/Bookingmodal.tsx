@@ -24,6 +24,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
     service: "",
     branch: "",
     date: "",
+    doctorId: "",
+    surgeryId: "",
   });
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,21 +37,23 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
       const response: any = await bookAppointment(formData);
 
       if (response?.success) {
-        toast("Appointment booked successfully ✅");
+        toast.success("Appointment booked successfully ✅");
         setFormData({
           name: "",
           phone: "",
           date: "",
           service: "",
           branch: "",
+          doctorId: "",
+          surgeryId: "",
         });
         onClose();
       } else {
-        toast(response?.message || "Something went wrong");
+        toast.error(response?.message || "Something went wrong");
       }
     } catch (error: any) {
       console.error(error);
-      toast(error?.response?.data?.message || "Server error");
+      toast.error(error?.response?.data?.message || "Server error");
     } finally {
       setLoading(false);
     }
@@ -58,7 +62,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e?.target?.name ?? ""]: e?.target?.value ?? "",
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -68,11 +72,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md md:max-w-4xl max-h-[90vh] overflow-y-auto animate-slideDown">
         {/* Header */}
-        <div className="bg-[#2c3e7e] text-white px-6 py-4 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Book Appointment</h2>
+        <div className="bg-teal-600 text-white px-6 py-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold modalbtn">Book Appointment</h2>
           <button
             onClick={onClose}
-            className="text-white hover:text-gray-200 transition-colors"
+            className="text-white hover:text-gray-200 transition-colors modalbtn"
             aria-label="Close modal"
           >
             <X size={24} />
@@ -166,14 +170,14 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* Surgery Field */}
+              {/* Surgery/Service Field */}
               <div>
                 <div className="relative">
                   <Stethoscope className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
                     name="service"
-                    placeholder="Surgery"
+                    placeholder="Surgery/Service"
                     value={formData.service}
                     onChange={handleChange}
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
@@ -182,14 +186,14 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              {/* City Field */}
+              {/* Branch/City Field */}
               <div>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
                     name="branch"
-                    placeholder="City"
+                    placeholder="Branch/City"
                     value={formData.branch}
                     onChange={handleChange}
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
@@ -217,17 +221,18 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed modalbtn "
               >
                 {loading ? "Booking..." : "Book Appointment"}
               </button>
 
-              {/* 24/7 Support */}
+              {/* 24/7 Support Button */}
               <button
                 type="button"
                 onClick={() => (window.location.href = "tel:+917056323473")}
-                className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 modalbtn"
               >
+                <Phone className="w-5 h-5" />
                 24/7 Support
               </button>
             </form>
