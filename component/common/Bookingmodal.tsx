@@ -28,7 +28,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       setLoading(true);
       const response: any = await bookAppointment(formData);
@@ -42,6 +43,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           service: "",
           branch: "",
         });
+        onClose();
       } else {
         toast(response?.message || "Something went wrong");
       }
@@ -62,13 +64,9 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e?.target?.name ?? ""]: e?.target?.value ?? "" });
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-      <div className="bg-white rounded-t-2xl md:rounded-lg shadow-xl w-full max-w-md md:max-w-4xl max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md md:max-w-4xl max-h-[90vh] overflow-y-auto animate-slideDown">
         {/* Header */}
         <div className="bg-[#2c3e7e] text-white px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-semibold">Book Appointment</h2>
@@ -134,7 +132,6 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* Right Section - Form */}
-          {/* Right Section - Form (full width on mobile) */}
           <div className="p-5 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Name Field */}
@@ -159,7 +156,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="tel"
-                    name="mobile"
+                    name="phone"
                     placeholder="Mobile number"
                     value={formData.phone}
                     onChange={handleChange}
@@ -175,7 +172,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                   <Stethoscope className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
-                    name="surgery"
+                    name="service"
                     placeholder="Surgery"
                     value={formData.service}
                     onChange={handleChange}
@@ -191,7 +188,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
-                    name="city"
+                    name="branch"
                     placeholder="City"
                     value={formData.branch}
                     onChange={handleChange}
@@ -201,28 +198,38 @@ const BookingModal: React.FC<BookingModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
+              {/* Date Field */}
               <div>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
-                />
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all"
+                    required
+                  />
+                </div>
               </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+                disabled={loading}
+                className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Book Appointment
+                {loading ? "Booking..." : "Book Appointment"}
               </button>
 
               {/* 24/7 Support */}
-              <div className="text-center">
-                <p className="text-teal-600 font-medium">24/7 Support</p>
-              </div>
+              <button
+                type="button"
+                onClick={() => (window.location.href = "tel:+917056323473")}
+                className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                24/7 Support
+              </button>
             </form>
           </div>
         </div>

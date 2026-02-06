@@ -53,13 +53,13 @@ export default function NavigationDesktop() {
             >
               Contact Us
             </Link>
-            <button className=" text-[#2797A9] px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium border-2 flex justify-between border-r-2">
+            <button className="  px-6 py-2 rounded-lg bg-teal-600 transition font-medium border-2 flex justify-between border-r-2 navigation-appointment">
               <Phone />
               +91 7056323473
             </button>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-[#2797A9] text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium"
+              className=" text-white px-6 py-2 rounded-lg bg-teal-600 transition font-medium  border-2 border-teal-600 navigation-appointment"
             >
               Book Your Appointment
             </button>

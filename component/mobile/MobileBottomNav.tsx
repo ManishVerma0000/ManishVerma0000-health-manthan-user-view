@@ -61,8 +61,8 @@ export default function MobileBottomNav({
           <button
             type="button"
             onClick={onBookAppointment}
-            style={{ color: "#ffffff" }}
-            className="flex items-center justify-center gap-2 py-3 px-4 border-2 border-teal-600 text-teal-600 rounded-lg font-medium hover:bg-teal-50 transition-colors"
+            // style={{ color: "#ffffff" }}
+            className="flex items-center justify-center gap-2 py-3 px-4 border-2 border-teal-600 text-teal-600 rounded-lg font-medium hover:bg-teal-50 transition-colors mobilebtn"
           >
             <CalendarCheck className="w-5 h-5" />
             Book Appointment

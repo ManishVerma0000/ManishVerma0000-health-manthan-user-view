@@ -515,7 +515,7 @@ export default function NewDesignPage() {
               </Link>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className=" text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium border-2"
+                className=" text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition font-medium  mainpagebookappintment"
               >
                 Book Your Appointment
               </button>
