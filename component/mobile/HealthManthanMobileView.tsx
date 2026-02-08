@@ -85,7 +85,7 @@ const HealthManthan: React.FC = () => {
         </button>
         <div className="flex items-center gap-2">
           <span className="text-2xl font-bold text-[#1e3a8a]">Health</span>
-          <span className="text-2xl font-bold text-[#0ea5e9]">Manthan</span>
+          <span className="text-2xl font-bold text-[#0ea5e9]">Vandnam</span>
         </div>
         <div className="w-6"></div>
       </header>

@@ -22,7 +22,7 @@ export default function AboutUsMobile() {
         </button>
         <div className="flex items-center gap-2">
           <span className="text-2xl font-bold text-[#1e3a8a]">Health</span>
-          <span className="text-2xl font-bold text-[#0ea5e9]">Manthan</span>
+          <span className="text-2xl font-bold text-[#0ea5e9]">Vandnam</span>
         </div>
         <div className="w-6"></div>
       </header>
@@ -39,7 +39,7 @@ export default function AboutUsMobile() {
       <section className="px-4 py-6">
         <h2 className="text-xl font-semibold text-gray-900 mb-2">Who We Are</h2>
         <p className="text-sm text-gray-600 leading-relaxed">
-          HealthManthan is a digital healthcare platform that connects patients
+          Health Vandnam is a digital healthcare platform that connects patients
           with trusted hospitals, doctors, and medical services. Our goal is to
           simplify healthcare access and decision-making for everyone.
         </p>

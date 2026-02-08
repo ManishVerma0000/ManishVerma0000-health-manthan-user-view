@@ -50,7 +50,7 @@ const SideBarMobile: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center justify-between px-4 py-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
               <span className="text-xl font-bold text-gray-800">Health</span>
-              <span className="text-xl font-bold text-teal-500">Manthan</span>
+              <span className="text-xl font-bold text-teal-500">Vandnam</span>
             </div>
             <button
               onClick={onClose}

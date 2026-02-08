@@ -98,7 +98,7 @@ export default function FooterDesktop() {
 
             <div>
               <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">
-                Health Manthan
+                Health Vandnam
               </h3>
               <ul className="space-y-2 text-sm text-white">
                 <li>
