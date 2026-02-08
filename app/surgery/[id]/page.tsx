@@ -243,9 +243,6 @@ export default function CataractSurgeryPage() {
               {/* Images Gallery */}
               {surgeryData?.images?.length > 0 && (
                 <div className="bg-white rounded-lg shadow-sm p-8 mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                    Procedure Images
-                  </h2>
                   <div className="grid grid-cols-1 gap-4">
                     <img
                       src={surgeryData?.images?.[0]}

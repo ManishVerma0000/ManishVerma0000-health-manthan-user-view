@@ -123,7 +123,11 @@ export default function NewDesignPage() {
   });
   const [surgeries, setSurgeries] = useState<any[]>();
   const [loading, setLoading] = useState(true);
-  const handleSurgeryPageDetails = () => {
+  const handleSurgeryPageDetails = (id: string) => {
+    router.push(`surgery/${id}`);
+  };
+
+  const handleSurgeryPageAll = () => {
     router.push(`surgery`);
   };
 
@@ -162,7 +166,7 @@ export default function NewDesignPage() {
     const fetchSurgeries = async () => {
       try {
         const data = await getSurgeryList();
-        setSurgeries(data.data || data);
+        setSurgeries(data?.data || data);
       } catch (error) {
         console.error("Error fetching surgeries:", error);
       } finally {
@@ -313,7 +317,7 @@ export default function NewDesignPage() {
                   key={item?._id}
                   className="bg-white rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
                   onClick={() => {
-                    handleSurgeryPageDetails();
+                    handleSurgeryPageDetails(item?._id);
                   }}
                 >
                   {/* Icon Wrapper */}
@@ -349,7 +353,7 @@ export default function NewDesignPage() {
             <div className="flex justify-center items-center mt-6 sm:mt-8">
               <button
                 onClick={() => {
-                  handleSurgeryPageDetails();
+                  handleSurgeryPageAll();
                 }}
                 className="px-6 py-3 sm:px-8 sm:py-4 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 hover:shadow-lg transition duration-300 text-sm sm:text-base"
               >

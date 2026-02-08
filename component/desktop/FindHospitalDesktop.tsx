@@ -55,7 +55,7 @@ export default function SurgeriesPage() {
 
         // Default first category
         if (res.length > 0) {
-          setSelectedCategory(res[0].surgeryCategory._id);
+          setSelectedCategory(res?.[0]?.surgeryCategory?._id);
         }
       } catch (err) {
         console.error(err);
@@ -78,17 +78,17 @@ export default function SurgeriesPage() {
 
   const groupedSurgeries: GroupedSurgeries = surgeries.reduce(
     (acc, surgery) => {
-      const categoryId = surgery.surgeryCategory._id;
+      const categoryId = surgery?.surgeryCategory?._id;
 
       if (!acc[categoryId]) {
         acc[categoryId] = {
-          categoryName: surgery.surgeryCategory.categoryName,
-          categoryIcon: surgery.surgeryCategory.iconImage || surgery.icon,
+          categoryName: surgery?.surgeryCategory?.categoryName,
+          categoryIcon: surgery?.surgeryCategory?.iconImage || surgery?.icon,
           surgeries: [],
         };
       }
 
-      acc[categoryId].surgeries.push(surgery);
+      acc[categoryId]?.surgeries?.push(surgery);
 
       return acc;
     },
