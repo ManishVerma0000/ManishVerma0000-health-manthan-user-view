@@ -39,7 +39,7 @@ export default function NavigationDesktop() {
               href="/surgery"
               className="text-gray-700 hover:text-teal-500 transition"
             >
-              Explore
+              Surgery
             </Link>
             <Link
               href="/find-doctor"
