@@ -13,14 +13,30 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Health Vandanam",
+  metadataBase: new URL("https://healthvandanam.com"),
+
+  title: {
+    default: "Health Vandanam",
+    template: "%s | Health Vandanam",
+  },
+
   description: "Healing Made Simple",
+
+  openGraph: {
+    title: "Health Vandanam",
+    description: "Healing Made Simple",
+    url: "https://healthvandanam.com",
+    siteName: "Health Vandanam",
+    type: "website",
+  },
+
   icons: {
-    icon: "favicon.ico",
-    shortcut: "favicon.ico",
-    apple: "favicon.ico",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
+
 
 export default function RootLayout({
   children,
