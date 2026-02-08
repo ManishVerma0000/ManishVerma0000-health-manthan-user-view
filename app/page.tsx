@@ -1,5 +1,5 @@
 import AppLayout from "@/component/common/AppLayout";
-import HealthManthanLanding from "@/component/desktop/HealthManthanLanding";
+import HealthManthanLanding from "@/component/desktop/HealthVandnamLanding";
 
 export default function Home() {
   return (

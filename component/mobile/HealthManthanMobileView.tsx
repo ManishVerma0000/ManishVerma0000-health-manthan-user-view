@@ -13,7 +13,7 @@ import {
 import SideBarMobile from "./SidebarMobile";
 import Footer from "./FooterMobile";
 
-const HealthManthan: React.FC = () => {
+const HealthVandnam: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const specialties = [
@@ -391,4 +391,4 @@ const HealthManthan: React.FC = () => {
   );
 };
 
-export default HealthManthan;
+export default HealthVandnam;

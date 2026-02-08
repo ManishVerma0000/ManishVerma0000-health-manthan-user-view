@@ -20,7 +20,7 @@ export default function NavigationDesktop() {
           >
             <Image
               src={"/logo.svg"}
-              alt="Health Manthan Logo"
+              alt="Health Vandnam Logo"
               width={300}
               height={300}
               className="object-contain max-h-10 w-auto"
