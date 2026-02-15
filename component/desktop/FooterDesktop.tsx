@@ -147,7 +147,7 @@ export default function FooterDesktop() {
                 Contact Us
               </h3>
               <ul className="space-y-2 text-sm text-white">
-                <li>+91 9797097975</li>
+                <li>+91 9582601515</li>
                 <li>1234567890</li>
                 <li>91 Contact Email</li>
               </ul>

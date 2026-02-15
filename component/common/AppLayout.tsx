@@ -12,7 +12,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const handleWhatsAppClick = () => {
-    window.open("https://wa.me/917056323473", "_blank");
+    window.open("https://wa.me/9582601515", "_blank");
   };
 
   return (

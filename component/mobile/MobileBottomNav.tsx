@@ -52,7 +52,7 @@ export default function MobileBottomNav({
         {/* Action buttons: Call Now + Book Appointment */}
         <div className="flex gap-3 px-4 py-3 border-b border-gray-100">
           <Link
-            href="tel:+917056323473"
+            href="tel:+919582601515"
             className="flex-1 flex items-center justify-center gap-2 py-3 px-4 border-2 border-teal-600 text-teal-600 rounded-lg font-medium hover:bg-teal-50 transition-colors"
           >
             <Phone className="w-5 h-5" />
